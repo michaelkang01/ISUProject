@@ -86,7 +86,7 @@
               <Component id="mainscreen" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="statscreen" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -155,13 +155,15 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lblst" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblhp" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblhun" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblen" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblwat" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblhpn" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblstn" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblenn" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblhunn" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblwatn" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -171,9 +173,9 @@
                           <Component id="lblmoneyn" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace pref="17" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblagi" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="lblstr" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -185,16 +187,14 @@
                               <Component id="lblstrn" min="-2" max="-2" attributes="0"/>
                               <Component id="lblintn" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                          <Component id="lblxp" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="lblpr" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblxpn" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="lblprn" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
@@ -221,29 +221,31 @@
                   <Component id="lblname" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblhp" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblen" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblstr" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblhpn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblenn" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblstrn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblst" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblhun" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblagi" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblstn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblhunn" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblagin" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblint" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblintn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblwat" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblwatn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="27" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblxp" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblpr" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblmoney" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblmoneyn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblxpn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblprn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="lbllog" min="-2" max="-2" attributes="0"/>
@@ -293,20 +295,20 @@
             <Property name="text" type="java.lang.String" value="Name"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblhp">
+        <Component class="javax.swing.JLabel" name="lblen">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Health: "/>
+            <Property name="text" type="java.lang.String" value="Energy:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblst">
+        <Component class="javax.swing.JLabel" name="lblhun">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Stamina:"/>
+            <Property name="text" type="java.lang.String" value="Hunger:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblmoney">
@@ -317,12 +319,12 @@
             <Property name="text" type="java.lang.String" value="Money:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblxp">
+        <Component class="javax.swing.JLabel" name="lblpr">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Experience:"/>
+            <Property name="text" type="java.lang.String" value="Prestige:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblstr">
@@ -349,7 +351,7 @@
             <Property name="text" type="java.lang.String" value="Intelligence:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblhpn">
+        <Component class="javax.swing.JLabel" name="lblenn">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
@@ -362,7 +364,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblstn">
+        <Component class="javax.swing.JLabel" name="lblhunn">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
@@ -419,7 +421,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="000000"/>
+            <Property name="text" type="java.lang.String" value="$0000000"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder/>
@@ -427,12 +429,33 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblxpn">
+        <Component class="javax.swing.JLabel" name="lblprn">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="000000"/>
+            <Property name="text" type="java.lang.String" value="0000"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblwat">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="33" red="33" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Water:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblwatn">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="0000"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder/>
