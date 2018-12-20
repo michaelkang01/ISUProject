@@ -5,10 +5,12 @@ import java.sql.*;
 import java.awt.*;
 
 public class Main extends javax.swing.JFrame {
-
+    static Player p = new Player("",0,0);
+    static String log;
     public Main() {
         initComponents();
-        Player player = new Player();
+        update();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -274,8 +276,15 @@ public class Main extends javax.swing.JFrame {
         });
     }
     
-    public static void update() {
-        
+    public void update() {
+        lblenn.setText(p.getEn() + "/" + p.getEnmax());
+        lblhunn.setText(p.getHn() + "/" + p.getHnmax());
+        lblwatn.setText(p.getWa() + "/" + p.getWamax());
+        lblmoneyn.setText("$" + p.getMon());
+        lblprn.setText(""+p.getPr());
+        lblstrn.setText(""+p.getStr());
+        lblagin.setText(""+p.getAgi());
+        lblintn.setText(""+p.getInte());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

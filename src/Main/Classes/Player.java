@@ -1,29 +1,22 @@
 
 package Main.Classes;
 
-public class Player {
-   private int str, agi, inte, mon, pr, en, hn, wa, enmax, hnmax, wamax ;
-   private String name;
+public class Player extends Person {
+   private int str, agi, inte, en, hn, wa, enmax, hnmax, wamax ;
    
-   public Player() {
+   public Player(String n, int p, int m) {
+       super(n, p, m);
        str = 1;
        agi = 1;
        inte = 1;
-       mon = 0;
-       pr = 0;
        enmax = 100;
        hnmax = 100;
        wamax = 100;
        en = 100;
        hn = 100;
        wa = 100;
-       name = "";
    }
 
-    @Override
-    public String toString() {
-        return "Character{" + "str=" + str + ", agi=" + agi + ", inte=" + inte + ", mon=" + mon + ", pr=" + pr + ", en=" + en + ", hn=" + hn + ", wa=" + wa + ", enmax=" + enmax + ", hnmax=" + hnmax + ", wamax=" + wamax + ", name=" + name + '}';
-    }
 
     public int getStr() {
         return str;
