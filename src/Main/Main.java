@@ -1,5 +1,5 @@
 package Main;
-import Main.Classes.*;
+import Classes.*;
 import java.util.*;
 import java.sql.*;
 import java.awt.*;
@@ -7,6 +7,7 @@ import java.awt.*;
 public class Main extends javax.swing.JFrame {
     static Player p = new Player("",0,0);
     static String log;
+    static Queue<Person> leaderboards = new PriorityQueue();
     public Main() {
         initComponents();
         update();
@@ -285,6 +286,10 @@ public class Main extends javax.swing.JFrame {
         lblstrn.setText(""+p.getStr());
         lblagin.setText(""+p.getAgi());
         lblintn.setText(""+p.getInte());
+    }
+    
+    public void fillData(){
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,22 +1,21 @@
-
-package Main.Classes;
+package Classes;
 
 public class Player extends Person {
-   private int str, agi, inte, en, hn, wa, enmax, hnmax, wamax ;
-   
-   public Player(String n, int p, int m) {
-       super(n, p, m);
-       str = 1;
-       agi = 1;
-       inte = 1;
-       enmax = 100;
-       hnmax = 100;
-       wamax = 100;
-       en = 100;
-       hn = 100;
-       wa = 100;
-   }
 
+    private int str, agi, inte, en, hn, wa, enmax, hnmax, wamax;
+
+    public Player(String n, int p, int m) {
+        super(n, p, m);
+        str = 1;
+        agi = 1;
+        inte = 1;
+        enmax = 100;
+        hnmax = 100;
+        wamax = 100;
+        en = 100;
+        hn = 100;
+        wa = 100;
+    }
 
     public int getStr() {
         return str;
@@ -42,16 +41,8 @@ public class Player extends Person {
         this.inte = inte;
     }
 
-    public int getMon() {
-        return mon;
-    }
-
     public void setMon(int mon) {
         this.mon = mon;
-    }
-
-    public int getPr() {
-        return pr;
     }
 
     public void setPr(int pr) {
@@ -106,15 +97,8 @@ public class Player extends Person {
         this.wamax = wamax;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
-
-   
-   
-   
+    
 }
