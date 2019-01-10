@@ -2,7 +2,7 @@ package Classes;
 
 public class Player extends Person {
 
-    private int str, agi, inte, en, hn, wa, enmax, hnmax, wamax;
+    public static int str, agi, inte, en, hn, wa, enmax, hnmax, wamax;
 
     public Player(String n, int p, int m) {
         super(n, p, m);
@@ -22,14 +22,17 @@ public class Player extends Person {
     }
 
     public void setStr(int str) {
+        if (this.str == 99) return;
         this.str = str;
     }
 
     public int getAgi() {
+        
         return agi;
     }
 
     public void setAgi(int agi) {
+        if (this.agi == 99) return;
         this.agi = agi;
     }
 
@@ -38,6 +41,7 @@ public class Player extends Person {
     }
 
     public void setInte(int inte) {
+        if (this.inte == 99) return;
         this.inte = inte;
     }
 
