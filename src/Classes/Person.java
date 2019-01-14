@@ -2,36 +2,41 @@ package Classes;
 
 import java.util.*;
 
-public abstract class Person implements Comparable {
+public class Person implements Comparable{
 
-    protected String name;
-    protected int pr, mon;
-    static int pos;
-    protected ArrayList<Assets> ase;
-
+    public String name;
+    public int pr;
+    public int mon;
+    public int pos;
+    public ArrayList<Assets> ase;
+    
     public Person(String n, int p, int m) {
         name = n;
         pr = p;
         mon = m;
     }
-    
+    //Creates a dummy Person object.
     public Person() {
         name = "";
         pr = 0;
         mon = 0;
     }
 
-    @Override
-    public int compareTo(Object t) {
-        Person other = (Person) t;
-        if (pr == other.pr) {
-            Integer a = mon;
-            return a.compareTo(other.mon);
-        } else {
-            return pr - other.pr;
-        }
+    public void addAsset(Assets a) {
+        mon -= a.getValue();
+        ase.add(a);
     }
-
+    
+    public void addAssetCP(Assets a) {
+        ase.add(a);
+    }
+    
+    
+    //The toString acts simply as a display for what the Scoreboard will show
+    public String toString() {
+        return (name + "\n" + pr + " Prestige\n" + "$" + mon);
+    }
+    
     public String getName() {
         return name;
     }
@@ -44,37 +49,16 @@ public abstract class Person implements Comparable {
         return mon;
     }
 
-    public static int getPos() {
-        return pos;
-    }
-
-    public ArrayList<Assets> getAse() {
+    public ArrayList getAse() {
         return ase;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPr(int pr) {
-        this.pr = pr;
-    }
-
-    public void setMon(int mon) {
-        this.mon = mon;
-    }
-
-    public static void setPos(int pos) {
-        Person.pos = pos;
-    }
-
-    public void setAse(ArrayList<Assets> ase) {
-        this.ase = ase;
-    }
-
     @Override
-    public String toString() {
-        return name + "\n" + pr + " Prestige\n$" + mon;
+    public int compareTo(Object t) {
+        Person other = (Person)t;
+        if (mon == other.mon) return 0;
+        else if (mon > other.mon) return 1;
+        else return -1;
     }
 }
 
