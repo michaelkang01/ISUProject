@@ -2,6 +2,7 @@
 package Classes;
 
 public abstract class Assets {
+    
     protected int value;
     protected String name, code;
     protected double min, max, interest;
@@ -29,7 +30,7 @@ public abstract class Assets {
     abstract public int updateVal();
     
     final public String toString() {
-        return name + "\n" + code + "\n$" + value;
+        return type + ": " + name + " || " + code + " || $" + value;
     }
 
     public int getValue() {

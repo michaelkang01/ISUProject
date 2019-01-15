@@ -2,15 +2,26 @@
 package Classes;
 
 public class Bond extends Assets{
-
-    public Bond(int v, String n, String c, double i, double i2){
-        super(v,n,c,i, i2);
-        super.type = "bond"; 
+    //Bonds do not have randomness to them, but rather a flat rate.
+    private double rate;
+    
+    public Bond(int v, String n, String c, double r){
+        super(v,n,c,1,1);
+        type = "BOND"; 
+        rate = r;
+    }
+    
+    public Bond() {
+        super();
+        type = "BOND";
+        rate = 1;
     }
     
     @Override
     public int updateVal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        interest = rate;
+        value *= interest;
+        return value;
     }
     
 }

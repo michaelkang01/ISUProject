@@ -7,16 +7,15 @@ import javax.swing.*;
 import java.io.*;
 
 public class Main extends javax.swing.JFrame {
-    public Person p = new Person("",0,0);
+    public Person p;
     public String log;
     public ArrayList<Person> leaderboards = new ArrayList();
-    public DefaultListModel list;
     public Main() {
         initComponents();
+        p = new Person(JOptionPane.showInputDialog("Enter your name: "), 0, 1000);
         loadBoardData();
         updateLeaderboard();
         updateStats();
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -63,6 +62,9 @@ public class Main extends javax.swing.JFrame {
 
         txtlea.setColumns(20);
         txtlea.setRows(5);
+        txtlea.setFocusable(false);
+        txtlea.setPreferredSize(new java.awt.Dimension(100, 80));
+        txtlea.setRequestFocusEnabled(false);
         jScrollPane2.setViewportView(txtlea);
 
         javax.swing.GroupLayout mainscreenLayout = new javax.swing.GroupLayout(mainscreen);
@@ -78,8 +80,8 @@ public class Main extends javax.swing.JFrame {
             mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainscreenLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(217, Short.MAX_VALUE))
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
 
         statscreen.setBackground(new java.awt.Color(153, 153, 153));
@@ -156,7 +158,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lbllog)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -209,6 +211,7 @@ public class Main extends javax.swing.JFrame {
         String tle = "";
         for (int x = 0; x < leaderboards.size(); x++) {
             tle += x+1 + ". " + leaderboards.get(x) + "\n";
+            tle += "\n";
         }
         txtlea.setText(tle);
     }
