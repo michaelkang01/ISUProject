@@ -1,4 +1,5 @@
 package Main;
+
 import Classes.*;
 import java.util.*;
 import java.sql.*;
@@ -7,17 +8,24 @@ import javax.swing.*;
 import java.io.*;
 
 public class Main extends javax.swing.JFrame {
+
     public Person p;
     public String log;
     public ArrayList<Person> leaderboards = new ArrayList();
+    public ArrayList<Assets> Assets = new ArrayList();
+    public DefaultListModel avAssets = new DefaultListModel();
+    public DefaultListModel owAssets = new DefaultListModel();
+    
     public Main() {
         initComponents();
         p = new Person(JOptionPane.showInputDialog("Enter your name: "), 0, 1000);
         loadBoardData();
         updateLeaderboard();
         updateStats();
+        assetData();
+        updateAssets();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -29,6 +37,10 @@ public class Main extends javax.swing.JFrame {
         mainscreen = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtlea = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        lstav = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        lstown = new javax.swing.JList<>();
         statscreen = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtlog = new javax.swing.JTextArea();
@@ -62,10 +74,24 @@ public class Main extends javax.swing.JFrame {
 
         txtlea.setColumns(20);
         txtlea.setRows(5);
+        txtlea.setToolTipText("");
         txtlea.setFocusable(false);
         txtlea.setPreferredSize(new java.awt.Dimension(100, 80));
         txtlea.setRequestFocusEnabled(false);
         jScrollPane2.setViewportView(txtlea);
+
+        lstav.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lstav.setMaximumSize(new java.awt.Dimension(260, 400));
+        lstav.setMinimumSize(new java.awt.Dimension(260, 400));
+        lstav.setName(""); // NOI18N
+        lstav.setPreferredSize(new java.awt.Dimension(260, 400));
+        jScrollPane3.setViewportView(lstav);
+
+        lstown.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lstown.setMaximumSize(new java.awt.Dimension(260, 400));
+        lstown.setMinimumSize(new java.awt.Dimension(260, 400));
+        lstown.setPreferredSize(new java.awt.Dimension(260, 400));
+        jScrollPane4.setViewportView(lstown);
 
         javax.swing.GroupLayout mainscreenLayout = new javax.swing.GroupLayout(mainscreen);
         mainscreen.setLayout(mainscreenLayout);
@@ -74,14 +100,21 @@ public class Main extends javax.swing.JFrame {
             .addGroup(mainscreenLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(614, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(304, Short.MAX_VALUE))
         );
         mainscreenLayout.setVerticalGroup(
             mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainscreenLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
+                .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         statscreen.setBackground(new java.awt.Color(153, 153, 153));
@@ -158,7 +191,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lbllog)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -176,9 +209,9 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(mainscreen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(statscreen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +227,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);
@@ -204,13 +237,13 @@ public class Main extends javax.swing.JFrame {
     
     public void updateStats() {
         lblmoneyn.setText("$" + p.getMon());
-        lblprn.setText(""+p.getPr());
+        lblprn.setText("" + p.getPr());
     }
     
     public void updateLeaderboard() {
         String tle = "";
         for (int x = 0; x < leaderboards.size(); x++) {
-            tle += x+1 + ". " + leaderboards.get(x) + "\n";
+            tle += x + 1 + ". " + leaderboards.get(x) + "\n";
             tle += "\n";
         }
         txtlea.setText(tle);
@@ -224,20 +257,56 @@ public class Main extends javax.swing.JFrame {
             String name;
             int money, prestige;
             Person temp;
-            while(true) {
-                name= br.readLine();
-                if(name==null) break;
+            while (true) {
+                name = br.readLine();
+                if (name == null) {
+                    break;
+                }
                 money = Integer.parseInt(br.readLine());
                 prestige = Integer.parseInt(br.readLine());
-                temp = new Person(name, prestige,money);
+                temp = new Person(name, prestige, money);
                 leaderboards.add(temp);
             }
             br.close();
+        } catch (Exception e) {
         }
-        catch (Exception e) {}
     }
     
-   
+    public void assetData() {
+        Assets.add(new Stock(100,"Joe's Lemonade", "JLM", 0.98, 1.04,40,15));
+        Assets.add(new Stock(1000,"Hot N' Spicy Burgers", "HSB", 0.96, 1.05,40,90));
+        Assets.add(new Stock(3500,"Big Gas Garage", "BGG", 0.97, 1.08,40,150));
+        Assets.add(new Stock(7500,"BigBrain Computers", "BCO", 0.99, 1.11,40,400));
+        Assets.add(new Stock(11000,"Green and Blue Foods", "JLM", 1.01, 1.08,40,1000));
+        Assets.add(new Commodity(100, "Gold", "GLD", 0.88, 1.12));
+        Assets.add(new Commodity(100, "Silver", "SIL", 0.88, 1.12));
+        Assets.add(new Commodity(100, "Oil", "OIL", 0.88, 1.12));
+        Assets.add(new Commodity(100, "Energy", "NRG", 0.88, 1.12));
+        Assets.add(new Commodity(100, "Produce", "PRD", 0.88, 1.12));
+        Assets.add(new Bond());
+        Assets.add(new Bond());
+        Assets.add(new Bond());
+        Assets.add(new Bond());
+        Assets.add(new Bond());
+        Assets.add(new Luxury());
+        Assets.add(new Luxury());
+        Assets.add(new Luxury());
+        Assets.add(new Luxury());
+        Assets.add(new Luxury());
+    }
+    
+    public void updateAssets() {
+        for (int i = 0; i < Assets.size(); i++) {
+            avAssets.add(i, Assets.get(i));
+        }
+        lstav.setModel(avAssets);
+        
+        for (int i = 0; i < p.ase.size(); i++) {
+            owAssets.add(i, p.ase.get(i));
+        }
+        lstown.setModel(owAssets);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -247,12 +316,16 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lbllog;
     private javax.swing.JLabel lblmoney;
     private javax.swing.JLabel lblmoneyn;
     private javax.swing.JLabel lblname;
     private javax.swing.JLabel lblpr;
     private javax.swing.JLabel lblprn;
+    private javax.swing.JList<String> lstav;
+    private javax.swing.JList<String> lstown;
     private javax.swing.JPanel mainscreen;
     private javax.swing.JMenu mnuprog;
     private javax.swing.JPanel statscreen;

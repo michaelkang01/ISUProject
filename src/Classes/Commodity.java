@@ -2,6 +2,7 @@
 package Classes;
 
 public class Commodity extends Assets{
+    //Player can buy infinate amount of commodoties, and therefore it must be counted.
     
     public Commodity(int v, String n, String c, double i, double i2){
         super(v,n,c,i, i2);

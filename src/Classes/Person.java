@@ -8,7 +8,7 @@ public class Person implements Comparable{
     public int pr;
     public int mon;
     public int pos;
-    public ArrayList<Assets> ase;
+    public ArrayList<Assets> ase = new ArrayList();
     
     public Person(String n, int p, int m) {
         name = n;

@@ -16,6 +16,7 @@ public class Stock extends Assets{
     
     public Stock() {
         super();
+        type = "STOCK";
     }
     
     @Override
