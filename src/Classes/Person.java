@@ -24,10 +24,13 @@ public class Person implements Comparable{
 
     public void addAsset(Assets a) {
         mon -= a.getValue();
+        a.owned = true;
         ase.add(a);
+        
     }
     
     public void addAssetCP(Assets a) {
+        a.owned = true;
         ase.add(a);
     }
     
