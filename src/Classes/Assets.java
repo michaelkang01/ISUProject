@@ -1,7 +1,7 @@
 
 package Classes;
 
-public abstract class Assets {
+public abstract class Assets implements Comparable{
     
     protected int value;
     protected String name, code;
@@ -51,6 +51,11 @@ public abstract class Assets {
 
     public boolean isOwned() {
         return owned;
+    }
+
+    @Override
+    public int compareTo(Object t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

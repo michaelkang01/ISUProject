@@ -41,6 +41,8 @@ public class Main extends javax.swing.JFrame {
         lstav = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
         lstown = new javax.swing.JList<>();
+        btnpur = new javax.swing.JButton();
+        btnsel = new javax.swing.JButton();
         statscreen = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtlog = new javax.swing.JTextArea();
@@ -93,6 +95,15 @@ public class Main extends javax.swing.JFrame {
         lstown.setPreferredSize(new java.awt.Dimension(260, 400));
         jScrollPane4.setViewportView(lstown);
 
+        btnpur.setText("Purchase Asset");
+        btnpur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpurActionPerformed(evt);
+            }
+        });
+
+        btnsel.setText("Sell Asset");
+
         javax.swing.GroupLayout mainscreenLayout = new javax.swing.GroupLayout(mainscreen);
         mainscreen.setLayout(mainscreenLayout);
         mainscreenLayout.setHorizontalGroup(
@@ -100,10 +111,20 @@ public class Main extends javax.swing.JFrame {
             .addGroup(mainscreenLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainscreenLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(mainscreenLayout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(btnpur, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainscreenLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(mainscreenLayout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(btnsel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(304, Short.MAX_VALUE))
         );
         mainscreenLayout.setVerticalGroup(
@@ -112,8 +133,14 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(mainscreenLayout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnsel))
+                    .addGroup(mainscreenLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnpur)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -191,7 +218,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lbllog)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
 
@@ -225,6 +252,10 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnpurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpurActionPerformed
+        
+    }//GEN-LAST:event_btnpurActionPerformed
 
     public static void main(String args[]) {
         
@@ -278,21 +309,21 @@ public class Main extends javax.swing.JFrame {
         Assets.add(new Stock(3500,"Big Gas Garage", "BGG", 0.97, 1.08,40,150));
         Assets.add(new Stock(7500,"BigBrain Computers", "BCO", 0.99, 1.11,40,400));
         Assets.add(new Stock(11000,"Green and Blue Foods", "JLM", 1.01, 1.08,40,1000));
-        Assets.add(new Commodity(100, "Gold", "GLD", 0.88, 1.12));
-        Assets.add(new Commodity(100, "Silver", "SIL", 0.88, 1.12));
-        Assets.add(new Commodity(100, "Oil", "OIL", 0.88, 1.12));
-        Assets.add(new Commodity(100, "Energy", "NRG", 0.88, 1.12));
-        Assets.add(new Commodity(100, "Produce", "PRD", 0.88, 1.12));
-        Assets.add(new Bond());
-        Assets.add(new Bond());
-        Assets.add(new Bond());
-        Assets.add(new Bond());
-        Assets.add(new Bond());
-        Assets.add(new Luxury());
-        Assets.add(new Luxury());
-        Assets.add(new Luxury());
-        Assets.add(new Luxury());
-        Assets.add(new Luxury());
+        Assets.add(new Commodity(1000, "Gold", "GLD", 0.88, 1.12));
+        Assets.add(new Commodity(200, "Silver", "SIL", 0.88, 1.12));
+        Assets.add(new Commodity(50, "Oil", "OIL", 0.88, 1.12));
+        Assets.add(new Commodity(25, "Energy", "NRG", 0.88, 1.12));
+        Assets.add(new Commodity(10, "Produce", "PRD", 0.88, 1.12));
+        Assets.add(new Bond(100, "City Infrastructure Bond", "MIB", 1.02));
+        Assets.add(new Bond(500, "Province Infrastructure Bond", "PIB", 1.02));
+        Assets.add(new Bond(1000, "Federal Infrastructure Bond", "FIB", 1.02));
+        Assets.add(new Bond(2500, "Resource Extraction Bond", "REB", 1.02));
+        Assets.add(new Bond(3000, "Domestic Factory Bond", "DFB", 1.02));
+        Assets.add(new Luxury(5000, "Jewelery", "JLR", 0.95, 1));
+        Assets.add(new Luxury(15000, "Automobile", "ATB", 0.80, 3));
+        Assets.add(new Luxury(25000, "Collectable Art", "CAT", 0.99, 5));
+        Assets.add(new Luxury(50000, "Yacht", "YCT", 0.80, 10));
+        Assets.add(new Luxury(100000, "Mansion", "MSN", 0.99, 20));
     }
     
     public void updateAssets() {
@@ -309,6 +340,8 @@ public class Main extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnpur;
+    private javax.swing.JButton btnsel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
