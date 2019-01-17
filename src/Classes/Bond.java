@@ -11,15 +11,19 @@ public class Bond extends Assets{
         rate = r;
     }
     
-    public Bond() {
-        super();
-        type = "BOND";
-        rate = 1;
+    public Bond(Bond a) {
+        super((Assets)a);
+        rate = a.rate;
     }
     
     @Override
-    public int updateVal() {
+    public void calcInterest() {
         interest = rate;
+    }
+    
+    @Override
+    public double updateVal() {
+        calcInterest();
         value *= interest;
         return value;
     }

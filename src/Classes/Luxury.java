@@ -15,16 +15,20 @@ public class Luxury extends Assets{
         prestige = p;
     }
     
-    public Luxury() {
-        super();
-        type = "LUXURY";
-        depreciation = 1;
-        prestige = 1;
+    public Luxury(Luxury a) {
+        super((Assets)a);
+        depreciation = a.depreciation;
+        prestige = a.prestige;
     }
     
     @Override
-    public int updateVal() {
+    public void calcInterest() {
         interest = depreciation;
+    }
+    
+    @Override
+    public double updateVal() {
+        calcInterest();
         value *= interest;
         return value;
     }

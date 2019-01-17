@@ -5,36 +5,31 @@ public class Stock extends Assets{
     //Stocks will reveal ownership of a company
     private double ownership;
     //Stocks will also pay out a dividend (seperate from value of stocks)
-    private int dividend;
+    private double dividend;
     
-    public Stock(int v, String n, String c, double i, double i2, double os, int div){
+    public Stock(int v, String n, String c, double i, double i2, double os){
         super(v,n,c,i,i2);
         type = "STOCK";
         ownership = os;
-        div = dividend;
+        dividend = v/os;
     }
     
-    public Stock() {
-        super();
-        type = "STOCK";
+    public Stock(Stock a) {
+        super((Assets)a);
+        dividend = a.dividend;
+        ownership = a.ownership;
     }
     
     @Override
-    public int updateVal() {
-        interest = Math.random() * ((max - min) + 1) + min;
+    public double updateVal() {
+        calcInterest();
         value *= interest;
         return value;
     }
-    
-    public int payout() {
-        return dividend;
-    }
 
-    public double getOwnership() {
-        return ownership;
-    }
-
-    public double getdividend() {
+    //Special method of Stocks that pays out a dividend of the value every update  
+    public double getDividend() {
+        dividend = value/ownership;
         return dividend;
     }
     
