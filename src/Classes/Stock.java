@@ -21,10 +21,8 @@ public class Stock extends Assets{
     }
     
     @Override
-    public double updateVal() {
-        calcInterest();
-        value *= interest;
-        return value;
+        public void calcInterest() {
+        interest = Math.random() * (max - min) + min;
     }
 
     //Special method of Stocks that pays out a dividend of the value every update  

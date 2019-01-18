@@ -26,12 +26,6 @@ public class Luxury extends Assets{
         interest = depreciation;
     }
     
-    @Override
-    public double updateVal() {
-        calcInterest();
-        value *= interest;
-        return value;
-    }
     
     public int getPrestige() {
         return prestige;

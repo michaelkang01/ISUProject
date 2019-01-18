@@ -19,14 +19,16 @@ public class Main extends javax.swing.JFrame {
     public DefaultListModel owAssets = new DefaultListModel();
     public NumberFormat nf = NumberFormat.getCurrencyInstance();
     public int day = 0;
+    public JScrollPane scroll;
+
 
     public Main() {
         initComponents();
-        p = new Person(JOptionPane.showInputDialog("Enter your name: "), 0, 1000);
+        p = new Person(JOptionPane.showInputDialog("Enter your name: "), 0, 10000);
                day ++;
-        log += "\n===================";
+        log += "\n=======================";
         log += "\nDay " + day;
-        log += "\n===================";
+        log += "\n=======================";
         loadBoardData();
         updateLeaderboard();
         updateStats();
@@ -57,14 +59,14 @@ public class Main extends javax.swing.JFrame {
         btnsel = new javax.swing.JButton();
         btnnext = new javax.swing.JButton();
         statscreen = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtlog = new javax.swing.JTextArea();
         lbllog = new javax.swing.JLabel();
         lblname = new javax.swing.JLabel();
         lblmoney = new javax.swing.JLabel();
         lblpr = new javax.swing.JLabel();
         lblmoneyn = new javax.swing.JLabel();
         lblprn = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtlog = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuprog = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -106,17 +108,21 @@ public class Main extends javax.swing.JFrame {
         txtlea.setRequestFocusEnabled(false);
         jScrollPane2.setViewportView(txtlea);
 
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(0, 0));
+
         lstav.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lstav.setMaximumSize(new java.awt.Dimension(260, 400));
-        lstav.setMinimumSize(new java.awt.Dimension(260, 400));
+        lstav.setDragEnabled(true);
+        lstav.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lstav.setMinimumSize(new java.awt.Dimension(0, 16));
         lstav.setName(""); // NOI18N
-        lstav.setPreferredSize(new java.awt.Dimension(260, 400));
         jScrollPane3.setViewportView(lstav);
 
+        jScrollPane4.setPreferredSize(new java.awt.Dimension(0, 0));
+
         lstown.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lstown.setMaximumSize(new java.awt.Dimension(260, 400));
-        lstown.setMinimumSize(new java.awt.Dimension(260, 400));
-        lstown.setPreferredSize(new java.awt.Dimension(260, 400));
+        lstown.setDragEnabled(true);
+        lstown.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lstown.setMinimumSize(new java.awt.Dimension(0, 16));
         jScrollPane4.setViewportView(lstown);
 
         btnpur.setText("Purchase Asset");
@@ -149,52 +155,52 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainscreenLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(btnpur, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(mainscreenLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnnext)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainscreenLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(mainscreenLayout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(btnsel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(127, Short.MAX_VALUE))
+                            .addGroup(mainscreenLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(mainscreenLayout.createSequentialGroup()
+                                .addGap(109, 109, 109)
+                                .addComponent(btnpur, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(mainscreenLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnsel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(120, 120, 120))
+                            .addGroup(mainscreenLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(24, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainscreenLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnnext)
+                        .addGap(287, 287, 287))))
         );
         mainscreenLayout.setVerticalGroup(
             mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainscreenLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(mainscreenLayout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnsel))
-                    .addGroup(mainscreenLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnpur)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnnext)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainscreenLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnnext))
+                            .addGroup(mainscreenLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnsel)
+                                    .addComponent(btnpur))))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         statscreen.setBackground(new java.awt.Color(153, 153, 153));
         statscreen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         statscreen.setForeground(new java.awt.Color(153, 153, 153));
-
-        txtlog.setColumns(20);
-        txtlog.setRows(5);
-        txtlog.setAutoscrolls(false);
-        txtlog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        txtlog.setFocusable(false);
-        txtlog.setPreferredSize(new java.awt.Dimension(200, 80));
-        jScrollPane1.setViewportView(txtlog);
 
         lbllog.setForeground(new java.awt.Color(51, 51, 51));
         lbllog.setText("Log");
@@ -216,6 +222,15 @@ public class Main extends javax.swing.JFrame {
         lblprn.setText("0000");
         lblprn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jScrollPane1.setAutoscrolls(true);
+
+        txtlog.setEditable(false);
+        txtlog.setColumns(20);
+        txtlog.setRows(5);
+        txtlog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtlog.setFocusable(false);
+        jScrollPane1.setViewportView(txtlog);
+
         javax.swing.GroupLayout statscreenLayout = new javax.swing.GroupLayout(statscreen);
         statscreen.setLayout(statscreenLayout);
         statscreenLayout.setHorizontalGroup(
@@ -223,27 +238,22 @@ public class Main extends javax.swing.JFrame {
             .addGroup(statscreenLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(statscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(statscreenLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(statscreenLayout.createSequentialGroup()
-                        .addComponent(lblname)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(statscreenLayout.createSequentialGroup()
-                .addGroup(statscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(statscreenLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(lblmoney)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblmoneyn)
-                        .addGap(41, 41, 41)
-                        .addComponent(lblpr)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblprn))
-                    .addGroup(statscreenLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbllog)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(statscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(statscreenLayout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(lblmoney)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblmoneyn)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblpr)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblprn))
+                            .addComponent(lblname)
+                            .addComponent(lbllog))
+                        .addGap(0, 59, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         statscreenLayout.setVerticalGroup(
             statscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,7 +268,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(lblprn))
                 .addGap(18, 18, 18)
                 .addComponent(lbllog)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1)
                 .addContainerGap())
         );
@@ -343,6 +353,7 @@ public class Main extends javax.swing.JFrame {
                     Commodity.prdcount ++;
                 }
             }
+            Assets.markettotal ++;
             updateStats();
             updateAssets();
         } else {
@@ -412,7 +423,6 @@ public class Main extends javax.swing.JFrame {
         log += "\n" + Commodity.gldcount + " GLD || " + Commodity.silcount + " SIL || "+ Commodity.oilcount + " OIL || "+ Commodity.nrgcount + " NRG || "+ Commodity.prdcount + " PRD ";
         updateAssets();
         updateStats();
-        log = "";
     }//GEN-LAST:event_btnnextActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

@@ -18,12 +18,11 @@ public class Commodity extends Assets {
     public Commodity(Commodity a) {
         super((Assets)a);
     }
-
+    
     @Override
-    public double updateVal() {
-        calcInterest();
-        value *= interest;
-        return value;
+    public void calcInterest() {
+        interest = Math.random() * (max - min) + min;
     }
+    
     
 }

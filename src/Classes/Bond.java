@@ -21,11 +21,5 @@ public class Bond extends Assets{
         interest = rate;
     }
     
-    @Override
-    public double updateVal() {
-        calcInterest();
-        value *= interest;
-        return value;
-    }
     
 }

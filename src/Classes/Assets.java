@@ -34,21 +34,25 @@ public abstract class Assets implements Comparable{
         interest = a.interest;
         owned = a.owned;
         type = a.type;
-        //You can purchase multiple copies of commodities
-        if(a.type.equals("COMMODITY")) {
+        //You can purchase multiple copies of commodities but it will not add to market total
+        if(!a.type.equals("COMMODITY")) {
             markettotal ++;
         }
     }
     
-    abstract public double updateVal();
+    public double updateVal() {
+        calcInterest();
+        value *= interest;
+        return value;
+    }
     
+    //Used as what to display in the Assets Lists, all assets will show the exact same info no matter what.
     final public String toString() {
         return type + ": " + name + " || " + code + " || " + nf.format(value);
     }
     
-    public void calcInterest() {
-        interest = Math.random() * (max - min) + min;
-    }
+    //Different types of Assets will have different ways to calculate interests (Some are static growths, other's are variable/random, some are static decay)
+    abstract public void calcInterest();
 
     public double getValue() {
         return value;
@@ -74,7 +78,7 @@ public abstract class Assets implements Comparable{
         value += 10;
     }
     
-    public int getTotal() {
+    public static int getTotal() {
         return markettotal;
     }
     @Override
