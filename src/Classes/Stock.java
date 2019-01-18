@@ -31,6 +31,13 @@ public class Stock extends Assets{
         return dividend;
     }
     
+    //Stock will take the bankbailout of $10, but it will also add the value equal to the previous dividend
+    @Override
+    public void jumpStart() {
+        super.jumpStart();
+        value += dividend;
+    }
+    
     
     
 }

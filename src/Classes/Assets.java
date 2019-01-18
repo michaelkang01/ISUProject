@@ -10,7 +10,10 @@ public abstract class Assets implements Comparable{
     protected double min, max, interest;
     protected boolean owned;
     protected String type;
+    //Markettotal is a static int storing how many assets are available for purchase (Counting commodities as 1)
     public static int markettotal;
+    //Playertotal is a static int that stores how many total assets are owned by the player (Each commodity is an addition (5 Oils = 5 Total)
+    public static int playertotal;
     public NumberFormat nf = NumberFormat.getCurrencyInstance();
     
     //Used to Create a New Asset
@@ -39,8 +42,8 @@ public abstract class Assets implements Comparable{
             markettotal ++;
         }
     }
-    
-    public double updateVal() {
+    //All Assets will have the same way to update the value, only the (abstract)calcInterest() function will change
+    final public double updateVal() {
         calcInterest();
         value *= interest;
         return value;
@@ -73,7 +76,8 @@ public abstract class Assets implements Comparable{
     public boolean isOwned() {
         return owned;
     }
-
+    
+    //Jumpstart has a general value of $10 (Given by a mythical Bank), the function is extended in Stocks
     public void jumpStart() {
         value += 10;
     }
@@ -81,9 +85,15 @@ public abstract class Assets implements Comparable{
     public static int getTotal() {
         return markettotal;
     }
+    
+    public static int getOwnedtotal() {
+        return playertotal;
+    }
+    //This compareTo is required to sort by alphabetical order for the list of objects ACCORDING TO THEIR CODE
     @Override
     public int compareTo(Object t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return code.compareTo(((Assets)t).code);
     }
+    
     
 }
