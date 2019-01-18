@@ -14,6 +14,7 @@ public class Main extends javax.swing.JFrame {
     public String log = "";
     public int listIndex = 0;
     public ArrayList<Person> leaderboards = new ArrayList();
+    //Array list of Assets will be sorted by Alphabetical
     public ArrayList<Assets> AssetsList = new ArrayList();
     public DefaultListModel avAssets = new DefaultListModel();
     public DefaultListModel owAssets = new DefaultListModel();
@@ -31,9 +32,9 @@ public class Main extends javax.swing.JFrame {
         log += "\n=======================";
         loadBoardData();
         updateLeaderboard();
-        updateStats();
         assetData();
         updateAssets();
+        updateStats();
     }
 
     @SuppressWarnings("unchecked")
@@ -431,7 +432,7 @@ public class Main extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         JOptionPane.showMessageDialog(this, "Stock\n=====\n Stocks are assets that have a moderate variance in gains/losses, they pay out a dividend to the owner every close");
-        JOptionPane.showMessageDialog(this, "Bonds\n=====\n Bonds are assets that have a consistant growth, albeit low, and only grows when purchased");
+        JOptionPane.showMessageDialog(this, "Bonds\n=====\n Bonds are assets that have a consistant growth, albeit low, and only grows when purchased, DO NOT BUILD COMPOUND INTEREST");
         JOptionPane.showMessageDialog(this, "Commodities\n=====\n Commodities are assets that have a large variance in gains/losses, and multiple may be purchased");
         JOptionPane.showMessageDialog(this, "Luxuries\n=====\n Luxuries are assets that only depreciate in value(other than mansion), but act as victory cards to build prestige");
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -518,6 +519,37 @@ public class Main extends javax.swing.JFrame {
             owAssets.add(i, p.ase.get(i));
         }
         lstown.setModel(owAssets);
+    }
+    //The method used to create an array of list using compareTo to begin recursive sory.
+    public static void prepSort(ArrayList<Assets> a) {
+        int[] i;
+        for 
+    }
+    //The Recursive Sort
+    public static void sort(int[] a, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int i = left;
+        int j = right;
+        int pivotValue = a[(left + right) / 2];
+        while (i < j) {
+            while (a[i] < pivotValue) {
+                i++;
+            }
+            while (pivotValue < a[j]) {
+                j--;
+            }
+            if (i <= j) {
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+                i++;
+                j--;
+            }
+        }
+        sort(a, left, j);
+        sort(a, i, right);
     }
 
 
