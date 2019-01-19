@@ -12,14 +12,14 @@ public class Bond extends Assets{
         super(v,n,c,1,1);
         type = "BOND"; 
         rate = r;
-        ogvalue = value;
+        ogvalue = v;
     }
     
     //Duplicating the Bond
     public Bond(Bond a) {
         super((Assets)a);
         rate = a.rate;
-        ogvalue = value;
+        ogvalue = a.ogvalue;
     }
     
     //Bonds have a special constructor, which slightly duplicates but uses the original value

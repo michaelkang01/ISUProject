@@ -558,8 +558,8 @@ public final class Main extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         //Help Assets -> will display the differences in the children classes of Assets
         JOptionPane.showMessageDialog(this, "Stock\n=====\n Stocks are assets that have a moderate variance in gains/losses, they pay out a dividend to the owner every close");
-        JOptionPane.showMessageDialog(this, "Bonds\n=====\n Bonds are assets that have a consistant growth, albeit low, and only grows when purchased, DO NOT BUILD COMPOUND INTEREST");
-        JOptionPane.showMessageDialog(this, "Commodities\n=====\n Commodities are assets that have a large variance in gains/losses, and multiple may be purchased");
+        JOptionPane.showMessageDialog(this, "Bonds\n=====\n Bonds are assets that have a consistant growth, albeit low, and only grows when purchased,\n prices are returned to original value when sold ");
+        JOptionPane.showMessageDialog(this, "Commodities\n=====\n Commodities are assets that have a large variance in gains/losses\nand an infinate amount may be purchased");
         JOptionPane.showMessageDialog(this, "Luxuries\n=====\n Luxuries are assets that only depreciate in value(other than mansion), but act as victory cards to build prestige");
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
@@ -644,15 +644,17 @@ public final class Main extends javax.swing.JFrame {
     //This method loads up the set of Assets available to the player
     public void assetData() {
         AssetsList.add(new Stock(100, "Joe's Lemonade", "JLM", 0.92, 1.10, 10));
-        AssetsList.add(new Stock(1000, "Hot N' Spicy Burgers", "HSB", 0.94, 1.10, 10));
-        AssetsList.add(new Stock(3500, "Big Gas Garage", "BGG", 0.94, 1.16, 10));
-        AssetsList.add(new Stock(7500, "BigBrain Computers", "BCO", 0.98, 1.07, 10));
-        AssetsList.add(new Stock(11000, "Green and Blue Foods", "GBF", 0.98, 1.08, 10));
+        AssetsList.add(new Stock(500, "K's Salads", "KSD", 0.92, 1.10, 10));
+        AssetsList.add(new Stock(1000, "Hot N' Spicy Burgers", "HSB", 0.90, 1.10, 10));
+        AssetsList.add(new Stock(3500, "Big Gas Garage", "BGG", 0.84, 1.16, 10));
+        AssetsList.add(new Stock(5000, "Fire'd Up Finances", "FUF", 0.97, 1.03, 10));
+        AssetsList.add(new Stock(7500, "BigBrain Computers", "BCO", 0.93, 1.07, 10));
+        AssetsList.add(new Stock(11000, "Green and Blue Foods", "GBF", 0.92, 1.08, 10));
         AssetsList.add(new Commodity(1000, "Gold", "GLD", 0.88, 1.12));
         AssetsList.add(new Commodity(200, "Silver", "SIL", 0.88, 1.12));
-        AssetsList.add(new Commodity(50, "Oil", "OIL", 0.92, 1.09));
-        AssetsList.add(new Commodity(25, "Energy", "NRG", 0.95, 1.07));
-        AssetsList.add(new Commodity(10, "Produce", "PRD", 0.99, 1.04));
+        AssetsList.add(new Commodity(50, "Oil", "OIL", 0.91, 1.09));
+        AssetsList.add(new Commodity(25, "Energy", "NRG", 0.93, 1.07));
+        AssetsList.add(new Commodity(10, "Produce", "PRD", 0.96, 1.04));
         AssetsList.add(new Bond(100, "City Infrastructure Bond", "MIB", 1.02));
         AssetsList.add(new Bond(500, "Province Infrastructure Bond", "PIB", 1.02));
         AssetsList.add(new Bond(1000, "Federal Infrastructure Bond", "FIB", 1.02));
@@ -662,7 +664,7 @@ public final class Main extends javax.swing.JFrame {
         AssetsList.add(new Luxury(15000, "Automobile", "ATB", 0.80, 3));
         AssetsList.add(new Luxury(25000, "Collectable Art", "CAT", 0.99, 5));
         AssetsList.add(new Luxury(50000, "Yacht", "YCT", 0.80, 10));
-        AssetsList.add(new Luxury(100000, "Mansion", "MSN", 1.01, 20));
+        AssetsList.add(new Luxury(100000, "Mansion", "MSN", 0.99, 20));
     }
 
     //Updates the display for the lsit of assets
