@@ -4,7 +4,6 @@
     Examine Individiual Assets in Detail
     Multiple Ways to Apply filter to asset lists
     Rework Stocks, and make it so you buy a %share every time
-    More information (such as total gain/loss in the previous day, etc.)
  */
 package Main;
 
@@ -31,6 +30,8 @@ public final class Main extends javax.swing.JFrame {
     public NumberFormat nf = NumberFormat.getCurrencyInstance();
     //The day counter will tick up at every update
     public int day = 0;
+    //Value used to store the value of the player's assets in the previous day, used for total gains calculation
+    public double prevVal = 0;
 
     public Main() {
         //They made me use this, cause it makes everything
@@ -435,14 +436,13 @@ public final class Main extends javax.swing.JFrame {
         //Add to list of available stocks, unless its a commodity (already there)
         if (!p.ase.get(index).getType().equals("COMMODITY")) {
             //If it is a bond, remake the bond, BUT using the original value rather than the new value
-            if (p.ase.get(index).getType().equals("BOND")){
+            if (p.ase.get(index).getType().equals("BOND")) {
                 Bond temp = new Bond((Bond) p.ase.get(index));
                 AssetsList.add(new Bond(temp.getOg(), temp));
-            }
-            else {
-            AssetsList.add(p.ase.get(index));
-            //Since it was not a commodity, add the number of Assets back into the market
-            Assets.markettotal++;
+            } else {
+                AssetsList.add(p.ase.get(index));
+                //Since it was not a commodity, add the number of Assets back into the market
+                Assets.markettotal++;
             }
         } //If you did sell a commodity, get rid of one from the count
         else {
@@ -475,7 +475,9 @@ public final class Main extends javax.swing.JFrame {
         log += "\n=======================";
         log += "\nDay " + day;
         log += "\n=======================";
-
+        //Sets up the prevVal and totalVal values to prepare for calculation
+        prevVal = Assets.getTVal();
+        Assets.resetTVal();
         //Runs through the Assets unowned and updates their values
         for (int j = 0; j < AssetsList.size(); j++) {
             //Luxuries and bonds do not update in value, but every other type will get updated
@@ -488,39 +490,47 @@ public final class Main extends javax.swing.JFrame {
                 AssetsList.get(j).jumpStart();
             }
         }
-        
+
         //Runs through list of owned assets and updates their values
         for (int i = 0; i < p.ase.size(); i++) {
+
             //Checks to see if the Asset is a commdity, If a commodity is found, set the price of the commodity in the player's assets equal to the price in the market
             if (p.ase.get(i).getType().equals("COMMODITY")) {
                 if (p.ase.get(i).getCode().equals("GLD")) {
                     p.ase.get(i).setValue(AssetsList.get(search("GLD")).getValue());
+                    //Updates the total value according to the market value of the commodity * the amount of that commodity owned
+                    Assets.totalVal += p.ase.get(i).getValue() * Commodity.gldcount;
                 }
                 if (p.ase.get(i).getCode().equals("SIL")) {
                     p.ase.get(i).setValue(AssetsList.get(search("SIL")).getValue());
+                    Assets.totalVal += p.ase.get(i).getValue() * Commodity.silcount;
                 }
                 if (p.ase.get(i).getCode().equals("OIL")) {
                     p.ase.get(i).setValue(AssetsList.get(search("OIL")).getValue());
+                    Assets.totalVal += p.ase.get(i).getValue() * Commodity.oilcount;
                 }
                 if (p.ase.get(i).getCode().equals("NRG")) {
                     p.ase.get(i).setValue(AssetsList.get(search("NRG")).getValue());
+                    Assets.totalVal += p.ase.get(i).getValue() * Commodity.nrgcount;
                 }
                 if (p.ase.get(i).getCode().equals("PRD")) {
                     p.ase.get(i).setValue(AssetsList.get(search("PRD")).getValue());
+                    Assets.totalVal += p.ase.get(i).getValue() * Commodity.prdcount;
                 }
-            }
-            else {
-            //If it is a stock, total the dividends of the Stocks BEFORE updating value
-            if (p.ase.get(i).getType().equals("STOCK")) {
-                p.dividends += ((Stock) p.ase.get(i)).getDividend();
-            }
-            //Updates value
-            p.ase.get(i).updateVal();
-            //If the value of the value of the Asset gets to $1 or lower, the bank funds the Asset (bonus for Stocks)
-            if (p.ase.get(i).getValue() <= 1) {
-                log += "\nThe market for " + p.ase.get(i).getName() + " has crashed!\n Value has been jumpstarted!";
-                p.ase.get(i).jumpStart();
-            }
+            } else {
+                //If it is a stock, total the dividends of the Stocks BEFORE updating value
+                if (p.ase.get(i).getType().equals("STOCK")) {
+                    p.dividends += ((Stock) p.ase.get(i)).getDividend();
+                }
+                //Updates value
+                p.ase.get(i).updateVal();
+                //Updates the new TotalValue with the updated value
+                Assets.totalVal += p.ase.get(i).getValue();
+                //If the value of the value of the Asset gets to $1 or lower, the bank funds the Asset (bonus for Stocks)
+                if (p.ase.get(i).getValue() <= 1) {
+                    log += "\nThe market for " + p.ase.get(i).getName() + " has crashed!\n Value has been jumpstarted!";
+                    p.ase.get(i).jumpStart();
+                }
             }
         }
         //Inform the player of the amount they earned from Stock dividends
@@ -533,6 +543,8 @@ public final class Main extends javax.swing.JFrame {
         log += "\nOwned Commodities:";
         log += "\n" + Commodity.gldcount + " GLD || " + Commodity.silcount + " SIL || " + Commodity.oilcount + " OIL || " + Commodity.nrgcount + " NRG || " + Commodity.prdcount + " PRD ";
         log += "\n" + "Player Assets: " + Assets.getOwnedtotal() + " || Market Assets: " + Assets.getTotal();
+        //Informs the player of total gains/losses of the day
+        log += "\n" + "Net Change of Assets : " + nf.format(Assets.getTVal() - prevVal);
         //Update displays
         updateAssets();
         updateStats();

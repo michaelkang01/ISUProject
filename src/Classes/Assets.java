@@ -21,6 +21,8 @@ public abstract class Assets implements Comparable{
     public static int playertotal;
     //SortVal will be used to determine what kind of sort is done with the assets, Anything else = Code, 1 = Name, 2 = Type, 3 = Vallue
     public static int sortVal = 0;
+    //TotalVal will be reset at every day, and is used to calculate the total gains of the player every day
+    public static double totalVal = 0;
     
     public NumberFormat nf = NumberFormat.getCurrencyInstance();
     
@@ -106,7 +108,15 @@ public abstract class Assets implements Comparable{
     public static int getOwnedtotal() {
         return playertotal;
     }
-    
+    //Method to clean out the static variable, TotalVal
+    public static void resetTVal() {
+        totalVal = 0;
+    }
+    //Returns the static value of totalVal
+    public static double getTVal() {
+        return totalVal;
+    }
+    //Method to set the sortVal value for compareTo
     public static void setSort(int a) {
         sortVal = a;
     }
