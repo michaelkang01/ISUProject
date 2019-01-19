@@ -30,13 +30,30 @@ public class Person implements Comparable{
         if (a.type.equals("BOND")) {
             ase.add(new Bond((Bond) a));
         }
-        //Puts in a Stock if it is a Stock, AND ADDS TO THE DIVIDEND PAYOUT
+        //Puts in a Stock if it is a Stock, 
         else if (a.type.equals("STOCK")) {
             ase.add(new Stock((Stock) a));
         }
-        //Adds an addiotnal copy of a commodity if it is a commodity
+        //Adds the commodity to list if not previously present, otherwise only the static counter of commodities will tick up (taken care of by main program)
         else if (a.type.equals("COMMODITY")) {
-            ase.add(new Commodity((Commodity) a));
+            if(a.getCode().equals("OIL") && Commodity.oilcount == 0) {
+                ase.add(new Commodity((Commodity) a));
+            }
+            if(a.getCode().equals("GLD") && Commodity.gldcount == 0) {
+                ase.add(new Commodity((Commodity) a));
+            }
+            if(a.getCode().equals("SIL") && Commodity.silcount == 0) {
+                ase.add(new Commodity((Commodity) a));
+            }
+            if(a.getCode().equals("PRD") && Commodity.prdcount == 0) {
+                ase.add(new Commodity((Commodity) a));
+            }
+            if(a.getCode().equals("NRG") && Commodity.nrgcount == 0) {
+                ase.add(new Commodity((Commodity) a));
+            }
+            else {
+                return true;
+            }
         }
         //Adds luxury if it is a luxury, and add prestige value
         else if (a.type.equals("LUXURY")) {
@@ -48,13 +65,36 @@ public class Person implements Comparable{
     }
     
     public void sellAsset(int a) {
+        //Gain money equal to the value
         mon += ase.get(a).getValue();
+        //Set owned to false
         ase.get(a).owned = false;
         //Remove pretige value if item sold was a luxury
         if (ase.get(a).getType().equals("LUXURY")) {
             pr -= ((Luxury)ase.get(a)).getPrestige();
         }
+        //If it was a commodity, check if it was the last one, or if there are more still, if there are still more, do not delete from list, only remove one from the count (handled by main);
+        if (ase.get(a).getType().equals("COMMODITY")) {
+            if(ase.get(a).getCode().equals("OIL") && Commodity.oilcount == 0) {
+                ase.remove(a);
+            }
+            else if(ase.get(a).getCode().equals("GLD") && Commodity.gldcount == 0) {
+                ase.remove(a);
+            }
+            else if(ase.get(a).getCode().equals("SIL") && Commodity.silcount == 0) {
+                ase.remove(a);
+            }
+            else if(ase.get(a).getCode().equals("PRD") && Commodity.prdcount == 0) {
+               ase.remove(a);
+            }
+            else if(ase.get(a).getCode().equals("NRG") && Commodity.nrgcount == 0) {
+                ase.remove(a);
+            }
+            else return;
+        }
+        else {
         ase.remove(a);
+        }
         
     }
     

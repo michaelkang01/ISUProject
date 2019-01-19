@@ -3,10 +3,9 @@
     Events
     Examine Individiual Assets in Detail
     Multiple Ways to Apply filter to asset lists
-    Coalesce and rework the value of Commodities (so they are constant)
     Rework Stocks, and make it so you buy a %share every time
     More information (such as total gain/loss in the previous day, etc.)
-*/
+ */
 package Main;
 
 import Classes.*;
@@ -15,8 +14,8 @@ import javax.swing.*;
 import java.io.*;
 import java.text.NumberFormat;
 
-public class Main extends javax.swing.JFrame {
-    
+public final class Main extends javax.swing.JFrame {
+
     //The Player Class
     public Person p;
     //The Log will be used to display information to the player
@@ -33,14 +32,13 @@ public class Main extends javax.swing.JFrame {
     //The day counter will tick up at every update
     public int day = 0;
 
-
     public Main() {
         //They made me use this, cause it makes everything
         initComponents();
         //Creats the Player Character
         p = new Person(JOptionPane.showInputDialog("Enter your name: "), 0, 1000);
         //Will set day to 1
-        day ++;
+        day++;
         //Gets the Format for the LOG Ready
         log += "\n=======================";
         log += "\nDay " + day;
@@ -396,28 +394,27 @@ public class Main extends javax.swing.JFrame {
             //If it isnt a commodity, delete it from available assets and remove from the market, because there can only be 1 of each
             if (!AssetsList.get(index).getType().equals("COMMODITY")) {
                 AssetsList.remove(index);
-                Assets.markettotal --;
-            }
-            //if it is a commodity, add a count to the number of specific commodies owned
+                Assets.markettotal--;
+            } //if it is a commodity, add a count to the number of specific commodies owned
             else {
                 if (AssetsList.get(index).getCode().equals("GLD")) {
-                    Commodity.gldcount ++;
+                    Commodity.gldcount++;
                 }
                 if (AssetsList.get(index).getCode().equals("SIL")) {
-                    Commodity.silcount ++;
+                    Commodity.silcount++;
                 }
                 if (AssetsList.get(index).getCode().equals("OIL")) {
-                    Commodity.oilcount ++;
+                    Commodity.oilcount++;
                 }
                 if (AssetsList.get(index).getCode().equals("NRG")) {
-                    Commodity.nrgcount ++;
+                    Commodity.nrgcount++;
                 }
                 if (AssetsList.get(index).getCode().equals("PRD")) {
-                    Commodity.prdcount ++;
+                    Commodity.prdcount++;
                 }
             }
             //Since the player purchased the Asset, add one to the player owned number
-            Assets.playertotal ++;
+            Assets.playertotal++;
             //Updates the two lists to make sure they are still sorted by alphabetically by Code
             sort();
             //Updates the displays
@@ -434,31 +431,37 @@ public class Main extends javax.swing.JFrame {
         //Gets the Asset that is selected on the sales list
         int index = lstown.getSelectedIndex();
         //Sends a simple update through the log to document what the palyer sold
-        log += "\n" + p.getName() + " has sold - " + p.ase.get(index).getName() + " || " + p.ase.get(index).getCode();
+        log += "\n" + p.getName() + " has sold - " + p.ase.get(index).getName() + " || " + p.ase.get(index).getCode() + " || " + nf.format(p.ase.get(index).getValue());
         //Add to list of available stocks, unless its a commodity (already there)
-        if (!AssetsList.get(index).getType().equals("COMMODITY")) {
+        if (!p.ase.get(index).getType().equals("COMMODITY")) {
+            //If it is a bond, remake the bond, BUT using the original value rather than the new value
+            if (p.ase.get(index).getType().equals("BOND")){
+                Bond temp = new Bond((Bond) p.ase.get(index));
+                AssetsList.add(new Bond(temp.getOg(), temp));
+            }
+            else {
             AssetsList.add(p.ase.get(index));
             //Since it was not a commodity, add the number of Assets back into the market
-            Assets.markettotal ++;
-        }
-        //If you did sell a commodity, get rid of one from the count
-        else {
-                if (AssetsList.get(index).getCode().equals("GLD")) {
-                    Commodity.gldcount --;
-                }
-                if (AssetsList.get(index).getCode().equals("SIL")) {
-                    Commodity.silcount --;
-                }
-                if (AssetsList.get(index).getCode().equals("OIL")) {
-                    Commodity.oilcount --;
-                }
-                if (AssetsList.get(index).getCode().equals("NRG")) {
-                    Commodity.nrgcount --;
-                }
-                if (AssetsList.get(index).getCode().equals("PRD")) {
-                    Commodity.prdcount --;
-                }
+            Assets.markettotal++;
             }
+        } //If you did sell a commodity, get rid of one from the count
+        else {
+            if (p.ase.get(index).getCode().equals("GLD")) {
+                Commodity.gldcount--;
+            }
+            if (p.ase.get(index).getCode().equals("SIL")) {
+                Commodity.silcount--;
+            }
+            if (p.ase.get(index).getCode().equals("OIL")) {
+                Commodity.oilcount--;
+            }
+            if (p.ase.get(index).getCode().equals("NRG")) {
+                Commodity.nrgcount--;
+            }
+            if (p.ase.get(index).getCode().equals("PRD")) {
+                Commodity.prdcount--;
+            }
+        }
         //Runs the method in the player class to sell an asset
         p.sellAsset(index);
         //Updates displays
@@ -468,23 +471,11 @@ public class Main extends javax.swing.JFrame {
 
     private void btnnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnextActionPerformed
         //This is the update, add one to days and get the display ready for a new day
-        day ++;
+        day++;
         log += "\n=======================";
         log += "\nDay " + day;
         log += "\n=======================";
-        //Runs through every single Asset owned by the player and updates their values
-        for (int i = 0; i < p.ase.size(); i++) {
-            p.ase.get(i).updateVal();
-            //If it is a stock, total the dividends of the Stocks 
-            if (p.ase.get(i).getType().equals("STOCK")) {
-                p.dividends += ((Stock) p.ase.get(i)).getDividend();
-            }
-            //If the value of the value of the Asset gets to $1 or lower, the bank funds the Asset (bonus for Stocks)
-            if (p.ase.get(i).getValue() <= 1) {
-                log += "\nThe market for " + p.ase.get(i).getName() + " has crashed!\n Value has been jumpstarted!";
-                p.ase.get(i).jumpStart();
-            }
-        }
+
         //Runs through the Assets unowned and updates their values
         for (int j = 0; j < AssetsList.size(); j++) {
             //Luxuries and bonds do not update in value, but every other type will get updated
@@ -497,6 +488,41 @@ public class Main extends javax.swing.JFrame {
                 AssetsList.get(j).jumpStart();
             }
         }
+        
+        //Runs through list of owned assets and updates their values
+        for (int i = 0; i < p.ase.size(); i++) {
+            //Checks to see if the Asset is a commdity, If a commodity is found, set the price of the commodity in the player's assets equal to the price in the market
+            if (p.ase.get(i).getType().equals("COMMODITY")) {
+                if (p.ase.get(i).getCode().equals("GLD")) {
+                    p.ase.get(i).setValue(AssetsList.get(search("GLD")).getValue());
+                }
+                if (p.ase.get(i).getCode().equals("SIL")) {
+                    p.ase.get(i).setValue(AssetsList.get(search("SIL")).getValue());
+                }
+                if (p.ase.get(i).getCode().equals("OIL")) {
+                    p.ase.get(i).setValue(AssetsList.get(search("OIL")).getValue());
+                }
+                if (p.ase.get(i).getCode().equals("NRG")) {
+                    p.ase.get(i).setValue(AssetsList.get(search("NRG")).getValue());
+                }
+                if (p.ase.get(i).getCode().equals("PRD")) {
+                    p.ase.get(i).setValue(AssetsList.get(search("PRD")).getValue());
+                }
+            }
+            else {
+            //If it is a stock, total the dividends of the Stocks BEFORE updating value
+            if (p.ase.get(i).getType().equals("STOCK")) {
+                p.dividends += ((Stock) p.ase.get(i)).getDividend();
+            }
+            //Updates value
+            p.ase.get(i).updateVal();
+            //If the value of the value of the Asset gets to $1 or lower, the bank funds the Asset (bonus for Stocks)
+            if (p.ase.get(i).getValue() <= 1) {
+                log += "\nThe market for " + p.ase.get(i).getName() + " has crashed!\n Value has been jumpstarted!";
+                p.ase.get(i).jumpStart();
+            }
+            }
+        }
         //Inform the player of the amount they earned from Stock dividends
         log += "\n" + nf.format(p.dividends) + " earned from Stock dividends";
         //Actually pay the player
@@ -505,7 +531,7 @@ public class Main extends javax.swing.JFrame {
         p.dividends = 0;
         //Inform the player of the amount of assets they own/don't own and the amount of commodities they own
         log += "\nOwned Commodities:";
-        log += "\n" + Commodity.gldcount + " GLD || " + Commodity.silcount + " SIL || "+ Commodity.oilcount + " OIL || "+ Commodity.nrgcount + " NRG || "+ Commodity.prdcount + " PRD ";
+        log += "\n" + Commodity.gldcount + " GLD || " + Commodity.silcount + " SIL || " + Commodity.oilcount + " OIL || " + Commodity.nrgcount + " NRG || " + Commodity.prdcount + " PRD ";
         log += "\n" + "Player Assets: " + Assets.getOwnedtotal() + " || Market Assets: " + Assets.getTotal();
         //Update displays
         updateAssets();
@@ -562,12 +588,14 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
+    //Update the stats display and the log
     public void updateStats() {
         lblmoneyn.setText("" + nf.format(p.getMon()));
         lblprn.setText("" + p.getPr());
         txtlog.setText(log);
     }
 
+    //Updates the leaderboard display
     public void updateLeaderboard() {
         String tle = "";
         for (int x = 0; x < leaderboards.size(); x++) {
@@ -577,6 +605,7 @@ public class Main extends javax.swing.JFrame {
         txtlea.setText(tle);
     }
 
+    //Sets up the leaderboards
     public void loadBoardData() {
         try {
             leaderboards.add(p);
@@ -600,6 +629,7 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
+    //This method loads up the set of Assets available to the player
     public void assetData() {
         AssetsList.add(new Stock(100, "Joe's Lemonade", "JLM", 0.92, 1.10, 10));
         AssetsList.add(new Stock(1000, "Hot N' Spicy Burgers", "HSB", 0.94, 1.10, 10));
@@ -623,6 +653,7 @@ public class Main extends javax.swing.JFrame {
         AssetsList.add(new Luxury(100000, "Mansion", "MSN", 1.01, 20));
     }
 
+    //Updates the display for the lsit of assets
     public void updateAssets() {
         avAssets.clear();
         owAssets.clear();
@@ -636,10 +667,24 @@ public class Main extends javax.swing.JFrame {
         }
         lstown.setModel(owAssets);
     }
+
     //Sorts the arrayLists so that they are in alphabetical order according to their Unique Code
     public void sort() {
         Collections.sort(AssetsList);
         Collections.sort(p.ase);
+    }
+
+    //Performs a linear search and Searches for location of an asset according to Code, used for keeping the price of commodities constant between player and market
+    public int search(String c) {
+        int index = -1;
+        for (int i = 0; i < AssetsList.size(); i++) {
+            index++;
+            if (AssetsList.get(i).getCode().equals(c)) {
+                return index;
+            }
+        }
+        //returns -1 if it does not find anything
+        return index;
     }
 
 

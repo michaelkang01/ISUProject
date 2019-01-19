@@ -2,7 +2,7 @@ package Classes;
 
 public class Commodity extends Assets {
 
-    //Player can buy infinate amount of commodoties, and therefore it must be counted.
+    //Player can buy infinate amount of commodoties, and therefore it must be counted, used to ensure no replications
     public static int gldcount = 0;
     public static int silcount = 0;
     public static int oilcount = 0;
@@ -22,6 +22,11 @@ public class Commodity extends Assets {
     @Override
     public void calcInterest() {
         interest = Math.random() * (max - min) + min;
+    }
+
+    @Override
+    public String event() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

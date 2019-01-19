@@ -20,7 +20,7 @@ public abstract class Assets implements Comparable{
     //Playertotal is a static int that stores how many total assets are owned by the player (Each commodity is an addition (5 Oils = 5 Total)
     public static int playertotal;
     //SortVal will be used to determine what kind of sort is done with the assets, Anything else = Code, 1 = Name, 2 = Type, 3 = Vallue
-    public static int sortVal;
+    public static int sortVal = 0;
     
     public NumberFormat nf = NumberFormat.getCurrencyInstance();
     
@@ -59,8 +59,17 @@ public abstract class Assets implements Comparable{
         return code + ": " + name + " || " + type + " || " + nf.format(value);
     }
     
+    //Used as a shorthand to simply randomly generate a number between 0.00 and 1.00, used for the abstract event method in almost all cases
+    final public double rng() {
+        return Math.random();
+    }
+    
     //Different types of Assets will have different ways to calculate interests (Some are static growths, other's are variable/random, some are static decay)
     abstract public void calcInterest();
+    
+    //Abstract method for event, the only common thing between events for the Assets is having rng play a role, returns a string because it will always be used with the log
+    abstract public String event();
+    
     //Returns the value of the asset, used when calculating gains/losses
     public double getValue() {
         return value;
@@ -81,7 +90,10 @@ public abstract class Assets implements Comparable{
     public boolean isOwned() {
         return owned;
     }
-    
+    //Set value command used only to copy the value of two Assets when they need to be kept constant
+    public void setValue(double v) {
+        value = v;
+    }
     //Jumpstart has a general value of $10 (Given by a mythical Bank), the function is extended in Stocks
     public void jumpStart() {
         value += 10;

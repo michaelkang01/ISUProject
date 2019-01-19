@@ -37,6 +37,11 @@ public class Stock extends Assets{
         super.jumpStart();
         value += dividend;
     }
+
+    @Override
+    public String event() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     
