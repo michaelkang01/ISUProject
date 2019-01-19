@@ -1,12 +1,12 @@
 Boreo Cosbo
-10000
+100000
 100
 Camillo Lullino
-7500
+75000
 100
 Krepo Dempo
-5000
+50000
 80
 Andy Guop
-5000
+50000
 50

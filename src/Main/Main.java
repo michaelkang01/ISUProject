@@ -1,38 +1,55 @@
+//To Do
+/*
+    Events
+    Examine Individiual Assets in Detail
+    Multiple Ways to Apply filter to asset lists
+    Coalesce and rework the value of Commodities (so they are constant)
+    Rework Stocks, and make it so you buy a %share every time
+    More information (such as total gain/loss in the previous day, etc.)
+*/
 package Main;
 
 import Classes.*;
 import java.util.*;
-import java.sql.*;
-import java.awt.*;
 import javax.swing.*;
 import java.io.*;
 import java.text.NumberFormat;
 
 public class Main extends javax.swing.JFrame {
-
+    
+    //The Player Class
     public Person p;
+    //The Log will be used to display information to the player
     public String log = "";
-    public int listIndex = 0;
+    //The Leaderboards are just some random values to compare to
     public ArrayList<Person> leaderboards = new ArrayList();
     //Array list of Assets will be sorted by Alphabetical
     public ArrayList<Assets> AssetsList = new ArrayList();
+    //These two lists are used to display the available/owned Assets 
     public DefaultListModel avAssets = new DefaultListModel();
     public DefaultListModel owAssets = new DefaultListModel();
+    //Number format for money, because we are dealing with alot of money
     public NumberFormat nf = NumberFormat.getCurrencyInstance();
+    //The day counter will tick up at every update
     public int day = 0;
-    public JScrollPane scroll;
 
 
     public Main() {
+        //They made me use this, cause it makes everything
         initComponents();
-        p = new Person(JOptionPane.showInputDialog("Enter your name: "), 0, 10000);
-               day ++;
+        //Creats the Player Character
+        p = new Person(JOptionPane.showInputDialog("Enter your name: "), 0, 1000);
+        //Will set day to 1
+        day ++;
+        //Gets the Format for the LOG Ready
         log += "\n=======================";
         log += "\nDay " + day;
         log += "\n=======================";
+        //Initializes the program
         loadBoardData();
         updateLeaderboard();
         assetData();
+        sort();
         updateAssets();
         updateStats();
     }
@@ -71,6 +88,11 @@ public class Main extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuprog = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        mnusort = new javax.swing.JMenu();
+        mnuCode = new javax.swing.JMenuItem();
+        mnuName = new javax.swing.JMenuItem();
+        mnuType = new javax.swing.JMenuItem();
+        mnuVal = new javax.swing.JMenuItem();
         mnuhelp = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -289,6 +311,42 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuprog);
 
+        mnusort.setText("Sort By...");
+
+        mnuCode.setText("Default (Code)");
+        mnuCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCodeActionPerformed(evt);
+            }
+        });
+        mnusort.add(mnuCode);
+
+        mnuName.setText("Name");
+        mnuName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuNameActionPerformed(evt);
+            }
+        });
+        mnusort.add(mnuName);
+
+        mnuType.setText("Type");
+        mnuType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuTypeActionPerformed(evt);
+            }
+        });
+        mnusort.add(mnuType);
+
+        mnuVal.setText("Value");
+        mnuVal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuValActionPerformed(evt);
+            }
+        });
+        mnusort.add(mnuVal);
+
+        jMenuBar1.add(mnusort);
+
         mnuhelp.setText("Help");
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, 0));
@@ -329,12 +387,16 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnpurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpurActionPerformed
+        //Gets the index of what Asset is selected in the list
         int index = lstav.getSelectedIndex();
+        //Abuses the Boolean addAsset() command, that checks the value of the Asset vs. The Available Funds
         if (p.addAsset(AssetsList.get(index))) {
+            //If True, send a simple notice through the log of what was purchased by the player
             log += "\n" + p.getName() + " has purchased - " + AssetsList.get(index).getName() + " || " + AssetsList.get(index).getCode();
-            //If it isnt a commodity, delete it from available assets, because there can only be 1 of each
+            //If it isnt a commodity, delete it from available assets and remove from the market, because there can only be 1 of each
             if (!AssetsList.get(index).getType().equals("COMMODITY")) {
                 AssetsList.remove(index);
+                Assets.markettotal --;
             }
             //if it is a commodity, add a count to the number of specific commodies owned
             else {
@@ -354,21 +416,30 @@ public class Main extends javax.swing.JFrame {
                     Commodity.prdcount ++;
                 }
             }
-            Assets.markettotal ++;
+            //Since the player purchased the Asset, add one to the player owned number
+            Assets.playertotal ++;
+            //Updates the two lists to make sure they are still sorted by alphabetically by Code
+            sort();
+            //Updates the displays
             updateStats();
             updateAssets();
         } else {
+            //This code is run if the original addAsset call returned false, which means the player did not have the money
             JOptionPane.showMessageDialog(this, "Error - Not Enough Money");
         }
 
     }//GEN-LAST:event_btnpurActionPerformed
 
     private void btnselActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnselActionPerformed
+        //Gets the Asset that is selected on the sales list
         int index = lstown.getSelectedIndex();
+        //Sends a simple update through the log to document what the palyer sold
         log += "\n" + p.getName() + " has sold - " + p.ase.get(index).getName() + " || " + p.ase.get(index).getCode();
         //Add to list of available stocks, unless its a commodity (already there)
         if (!AssetsList.get(index).getType().equals("COMMODITY")) {
             AssetsList.add(p.ase.get(index));
+            //Since it was not a commodity, add the number of Assets back into the market
+            Assets.markettotal ++;
         }
         //If you did sell a commodity, get rid of one from the count
         else {
@@ -388,54 +459,99 @@ public class Main extends javax.swing.JFrame {
                     Commodity.prdcount --;
                 }
             }
+        //Runs the method in the player class to sell an asset
         p.sellAsset(index);
+        //Updates displays
         updateStats();
         updateAssets();
     }//GEN-LAST:event_btnselActionPerformed
 
     private void btnnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnextActionPerformed
+        //This is the update, add one to days and get the display ready for a new day
         day ++;
-        log += "\n===================";
+        log += "\n=======================";
         log += "\nDay " + day;
-        log += "\n===================";
+        log += "\n=======================";
+        //Runs through every single Asset owned by the player and updates their values
         for (int i = 0; i < p.ase.size(); i++) {
             p.ase.get(i).updateVal();
+            //If it is a stock, total the dividends of the Stocks 
             if (p.ase.get(i).getType().equals("STOCK")) {
                 p.dividends += ((Stock) p.ase.get(i)).getDividend();
             }
-            if (p.ase.get(i).getValue() == 0) {
+            //If the value of the value of the Asset gets to $1 or lower, the bank funds the Asset (bonus for Stocks)
+            if (p.ase.get(i).getValue() <= 1) {
                 log += "\nThe market for " + p.ase.get(i).getName() + " has crashed!\n Value has been jumpstarted!";
                 p.ase.get(i).jumpStart();
             }
         }
+        //Runs through the Assets unowned and updates their values
         for (int j = 0; j < AssetsList.size(); j++) {
+            //Luxuries and bonds do not update in value, but every other type will get updated
             if (!AssetsList.get(j).getType().equals("LUXURY") && !AssetsList.get(j).getType().equals("BOND")) {
                 AssetsList.get(j).updateVal();
             }
-            if (AssetsList.get(j).getValue() == 0) {
+            //The bank will also add funds to the Asset if it was unowned
+            if (AssetsList.get(j).getValue() <= 0) {
                 log += "\nThe market for " + AssetsList.get(j).getName() + " has crashed!\n Value has been jumpstarted!";
                 AssetsList.get(j).jumpStart();
             }
         }
+        //Inform the player of the amount they earned from Stock dividends
         log += "\n" + nf.format(p.dividends) + " earned from Stock dividends";
+        //Actually pay the player
         p.getPayout();
+        //Reset the dividends
         p.dividends = 0;
+        //Inform the player of the amount of assets they own/don't own and the amount of commodities they own
         log += "\nOwned Commodities:";
         log += "\n" + Commodity.gldcount + " GLD || " + Commodity.silcount + " SIL || "+ Commodity.oilcount + " OIL || "+ Commodity.nrgcount + " NRG || "+ Commodity.prdcount + " PRD ";
+        log += "\n" + "Player Assets: " + Assets.getOwnedtotal() + " || Market Assets: " + Assets.getTotal();
+        //Update displays
         updateAssets();
         updateStats();
     }//GEN-LAST:event_btnnextActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        //If you click Exit, then exit
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        //Help Assets -> will display the differences in the children classes of Assets
         JOptionPane.showMessageDialog(this, "Stock\n=====\n Stocks are assets that have a moderate variance in gains/losses, they pay out a dividend to the owner every close");
         JOptionPane.showMessageDialog(this, "Bonds\n=====\n Bonds are assets that have a consistant growth, albeit low, and only grows when purchased, DO NOT BUILD COMPOUND INTEREST");
         JOptionPane.showMessageDialog(this, "Commodities\n=====\n Commodities are assets that have a large variance in gains/losses, and multiple may be purchased");
         JOptionPane.showMessageDialog(this, "Luxuries\n=====\n Luxuries are assets that only depreciate in value(other than mansion), but act as victory cards to build prestige");
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void mnuCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCodeActionPerformed
+        Assets.setSort(0);
+        sort();
+        updateAssets();
+        updateStats();
+    }//GEN-LAST:event_mnuCodeActionPerformed
+
+    private void mnuNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNameActionPerformed
+        Assets.setSort(1);
+        sort();
+        updateAssets();
+        updateStats();
+    }//GEN-LAST:event_mnuNameActionPerformed
+
+    private void mnuTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTypeActionPerformed
+        Assets.setSort(2);
+        sort();
+        updateAssets();
+        updateStats();
+    }//GEN-LAST:event_mnuTypeActionPerformed
+
+    private void mnuValActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuValActionPerformed
+        Assets.setSort(3);
+        sort();
+        updateAssets();
+        updateStats();
+    }//GEN-LAST:event_mnuValActionPerformed
 
     public static void main(String args[]) {
 
@@ -489,7 +605,7 @@ public class Main extends javax.swing.JFrame {
         AssetsList.add(new Stock(1000, "Hot N' Spicy Burgers", "HSB", 0.94, 1.10, 10));
         AssetsList.add(new Stock(3500, "Big Gas Garage", "BGG", 0.94, 1.16, 10));
         AssetsList.add(new Stock(7500, "BigBrain Computers", "BCO", 0.98, 1.07, 10));
-        AssetsList.add(new Stock(11000, "Green and Blue Foods", "JLM", 0.98, 1.08, 10));
+        AssetsList.add(new Stock(11000, "Green and Blue Foods", "GBF", 0.98, 1.08, 10));
         AssetsList.add(new Commodity(1000, "Gold", "GLD", 0.88, 1.12));
         AssetsList.add(new Commodity(200, "Silver", "SIL", 0.88, 1.12));
         AssetsList.add(new Commodity(50, "Oil", "OIL", 0.92, 1.09));
@@ -520,36 +636,10 @@ public class Main extends javax.swing.JFrame {
         }
         lstown.setModel(owAssets);
     }
-    //The method used to create an array of list using compareTo to begin recursive sory.
-    public static void prepSort(ArrayList<Assets> a) {
-        int[] i;
-        for 
-    }
-    //The Recursive Sort
-    public static void sort(int[] a, int left, int right) {
-        if (left >= right) {
-            return;
-        }
-        int i = left;
-        int j = right;
-        int pivotValue = a[(left + right) / 2];
-        while (i < j) {
-            while (a[i] < pivotValue) {
-                i++;
-            }
-            while (pivotValue < a[j]) {
-                j--;
-            }
-            if (i <= j) {
-                int temp = a[i];
-                a[i] = a[j];
-                a[j] = temp;
-                i++;
-                j--;
-            }
-        }
-        sort(a, left, j);
-        sort(a, i, right);
+    //Sorts the arrayLists so that they are in alphabetical order according to their Unique Code
+    public void sort() {
+        Collections.sort(AssetsList);
+        Collections.sort(p.ase);
     }
 
 
@@ -581,8 +671,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JList<String> lstav;
     private javax.swing.JList<String> lstown;
     private javax.swing.JPanel mainscreen;
+    private javax.swing.JMenuItem mnuCode;
+    private javax.swing.JMenuItem mnuName;
+    private javax.swing.JMenuItem mnuType;
+    private javax.swing.JMenuItem mnuVal;
     private javax.swing.JMenu mnuhelp;
     private javax.swing.JMenu mnuprog;
+    private javax.swing.JMenu mnusort;
     private javax.swing.JPanel statscreen;
     private javax.swing.JTextArea txtlea;
     private javax.swing.JTextArea txtlog;
