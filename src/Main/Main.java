@@ -489,6 +489,8 @@ public final class Main extends javax.swing.JFrame {
                 log += "\nThe market for " + AssetsList.get(j).getName() + " has crashed!\n Value has been jumpstarted!";
                 AssetsList.get(j).jumpStart();
             }
+            //Runs the command for a chance to cause an event for every single item in the list, *Bonds only have events if isOwned = true
+            log += AssetsList.get(j).event();
         }
 
         //Runs through list of owned assets and updates their values
@@ -531,6 +533,8 @@ public final class Main extends javax.swing.JFrame {
                     log += "\nThe market for " + p.ase.get(i).getName() + " has crashed!\n Value has been jumpstarted!";
                     p.ase.get(i).jumpStart();
                 }
+                //Runs the command for a chance to cause an event for every single item in the owned list
+                log += p.ase.get(i).event();
             }
         }
         //Inform the player of the amount they earned from Stock dividends
@@ -643,13 +647,13 @@ public final class Main extends javax.swing.JFrame {
 
     //This method loads up the set of Assets available to the player
     public void assetData() {
-        AssetsList.add(new Stock(100, "Joe's Lemonade", "JLM", 0.92, 1.10, 10));
-        AssetsList.add(new Stock(500, "K's Salads", "KSD", 0.92, 1.10, 10));
-        AssetsList.add(new Stock(1000, "Hot N' Spicy Burgers", "HSB", 0.90, 1.10, 10));
-        AssetsList.add(new Stock(3500, "Big Gas Garage", "BGG", 0.84, 1.16, 10));
-        AssetsList.add(new Stock(5000, "Fire'd Up Finances", "FUF", 0.97, 1.03, 10));
-        AssetsList.add(new Stock(7500, "BigBrain Computers", "BCO", 0.93, 1.07, 10));
-        AssetsList.add(new Stock(11000, "Green and Blue Foods", "GBF", 0.92, 1.08, 10));
+        AssetsList.add(new Stock(100, "Joe's Lemonade", "JLM", 0.92, 1.14, 10));
+        AssetsList.add(new Stock(500, "K's Salads", "KSD", 0.92, 1.14, 10));
+        AssetsList.add(new Stock(1000, "Hot N' Spicy Burgers", "HSB", 0.90, 1.14, 10));
+        AssetsList.add(new Stock(3500, "Big Gas Garage", "BGG", 0.84, 1.20, 10));
+        AssetsList.add(new Stock(5000, "Fire'd Up Finances", "FUF", 0.97, 1.07, 10));
+        AssetsList.add(new Stock(7500, "BigBrain Computers", "BCO", 0.93, 1.11, 10));
+        AssetsList.add(new Stock(11000, "Green and Blue Foods", "GBF", 0.92, 1.12, 10));
         AssetsList.add(new Commodity(1000, "Gold", "GLD", 0.88, 1.12));
         AssetsList.add(new Commodity(200, "Silver", "SIL", 0.88, 1.12));
         AssetsList.add(new Commodity(50, "Oil", "OIL", 0.91, 1.09));

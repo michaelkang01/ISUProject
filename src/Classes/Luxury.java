@@ -22,8 +22,10 @@ public class Luxury extends Assets{
     }
     
     @Override
-    public void calcInterest() {
+    public double updateVal() {
         interest = depreciation;
+        super.updateVal();
+        return value;
     }
     
     
@@ -33,7 +35,9 @@ public class Luxury extends Assets{
 
     @Override
     public String event() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String logr = "";
+        rng = Math.random();
+        return logr;
     }
     
 }

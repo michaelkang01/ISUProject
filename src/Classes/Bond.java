@@ -30,8 +30,10 @@ public class Bond extends Assets{
         rate = a.rate;
     }
     @Override
-    public void calcInterest() {
+    public double updateVal() {
         interest = rate;
+        super.updateVal();
+        return value;
     }
     
     public double getOg() {
@@ -40,7 +42,12 @@ public class Bond extends Assets{
 
     @Override
     public String event() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String logr = "";
+        rng = Math.random();
+        if (rng >= .9 && isOwned()) {
+            logr += "\nEVENT|| " + name + " would have crashed, Good thing you invested in Bonds!";
+        }
+        return logr;
     }
     
     

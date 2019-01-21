@@ -20,13 +20,27 @@ public class Commodity extends Assets {
     }
     
     @Override
-    public void calcInterest() {
+    public double updateVal() {
         interest = Math.random() * (max - min) + min;
+        super.updateVal();
+        return value;
     }
 
     @Override
     public String event() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String logr = "";
+        rng = Math.random();
+        //1% chance of the commodity crashing 50%
+        if (rng >= .99) {
+            value *= 0.5;
+            logr += "\nEVENT|| " + name + " has crashed 50%!!!";
+        }
+        //1% chance of the commodity increasing 50%
+        else if (rng >= .98) {
+            value *= 1.5;
+            logr +="\nEVENT|| " + name + " has increased 50%!!!";
+        }
+        return logr;
     }
     
     

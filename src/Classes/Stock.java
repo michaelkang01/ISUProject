@@ -19,11 +19,14 @@ public class Stock extends Assets{
         dividend = a.dividend;
         ownership = a.ownership;
     }
-    
+
     @Override
-        public void calcInterest() {
+    public double updateVal() {
         interest = Math.random() * (max - min) + min;
+        super.updateVal();
+        return value;
     }
+    
 
     //Special method of Stocks that pays out a dividend of the value every update  
     public double getDividend() {
@@ -40,7 +43,39 @@ public class Stock extends Assets{
 
     @Override
     public String event() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String logr = "";
+        rng = Math.random();
+        //20% of stock crashing 5% IF NOT OWNED BY THE PLAYER
+        if (rng >= .8 && !isOwned()) {
+            value *= .95;
+            logr += "\nEVENT|| " + name + " has dropped 5%";
+        }
+        //5% of stock increasing 10% IF NOT OWNED BY THE PLAYER
+        else if (rng >= .75 && !isOwned()) {
+            value *= 1.10;
+            logr +=  "\nEVENT||" + name + " has increased 10%";
+        }
+        //15% of stock increasing 10% IF OWNED BY THE PLAYER
+        else if (rng >= .85 && isOwned()) {
+            value *= 1.10;
+            logr +=  "\nEVENT||" + name + " has increased 10%";
+        }
+        //5% Chance of stock increasing 25% IF OWNED BY THE PLAYER
+        else if (rng >= 0.8 && isOwned()) {
+            value *= 1.25;
+            logr +=  "\nEVENT||" + name + " has increased 25%!";
+        }
+        //2% Chance of the stock Crashing 30% Regardless of ownership
+        else if (rng <= 0.02) {
+            value *= .7;
+            logr +=  "\nEVENT||" + name + " has crashed 30%!";
+        }
+        //8% Chance of stock crashing 10% Regardless of ownership
+        else if (rng <= .1) {
+            value *= .9;
+            logr +=  "\n" + name + " has crashed 10%";
+        }
+        return logr;
     }
     
     

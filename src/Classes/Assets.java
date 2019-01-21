@@ -23,6 +23,8 @@ public abstract class Assets implements Comparable{
     public static int sortVal = 0;
     //TotalVal will be reset at every day, and is used to calculate the total gains of the player every day
     public static double totalVal = 0;
+    //Variable stored simply to use for random number generation purposes (used in the event() for the most part)
+    protected double rng;
     
     public NumberFormat nf = NumberFormat.getCurrencyInstance();
     
@@ -49,27 +51,20 @@ public abstract class Assets implements Comparable{
         type = a.type;
         //You can purchase multiple copies of commodities but it will not add to market total
     }
-    //All Assets will have the same way to update the value, only the (abstract)calcInterest() function will change
-    final public double updateVal() {
-        calcInterest();
+    //updateVal will be extended differently in each individual type of Asset, as each asset will have a different way of calculating interest
+    public double updateVal() {
         value *= interest;
         return value;
     }
     
     //Used as what to display in the Assets Lists, all assets will show the exact same info no matter what.
+    @Override
     final public String toString() {
         return code + ": " + name + " || " + type + " || " + nf.format(value);
     }
     
-    //Used as a shorthand to simply randomly generate a number between 0.00 and 1.00, used for the abstract event method in almost all cases
-    final public double rng() {
-        return Math.random();
-    }
     
-    //Different types of Assets will have different ways to calculate interests (Some are static growths, other's are variable/random, some are static decay)
-    abstract public void calcInterest();
-    
-    //Abstract method for event, the only common thing between events for the Assets is having rng play a role, returns a string because it will always be used with the log
+    //Abstract Method for event, the only common thing between events for the Assets is having rng play a role, returns a string because it will always be used with the log in main. Only chance of one event will happen per asset 
     abstract public String event();
     
     //Returns the value of the asset, used when calculating gains/losses
