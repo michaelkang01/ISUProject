@@ -128,7 +128,8 @@ public class Person implements Comparable{
     
     @Override
     public int compareTo(Object t) {
-        return (int) (mon - ((Person)t).mon); 
+        //Is used to compare and sort the leaderboards from highest to lowest
+        return (int) (((Person)t).mon - mon ); 
     }
 }
 

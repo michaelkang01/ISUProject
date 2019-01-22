@@ -571,7 +571,7 @@ public final class Main extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Stock\n=====\n Stocks are assets that have a moderate variance in gains/losses, they pay out a dividend to the owner every close");
         JOptionPane.showMessageDialog(this, "Bonds\n=====\n Bonds are assets that have a consistant growth, albeit low, and only grows when purchased,\n prices are returned to original value when sold ");
         JOptionPane.showMessageDialog(this, "Commodities\n=====\n Commodities are assets that have a large variance in gains/losses\nand an infinate amount may be purchased");
-        JOptionPane.showMessageDialog(this, "Luxuries\n=====\n Luxuries are assets that only depreciate in value(other than mansion), but act as victory cards to build prestige");
+        JOptionPane.showMessageDialog(this, "Luxuries\n=====\n Luxuries are assets that only depreciate in value(other than mansion),\n but act as victory cards to build prestige");
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void mnuCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCodeActionPerformed
@@ -672,13 +672,13 @@ public final class Main extends javax.swing.JFrame {
 
     //This method loads up the set of Assets available to the player
     public void assetData() {
-        AssetsList.add(new Stock(100, "Joe's Lemonade", "JLM", 0.92, 1.14, 10));
-        AssetsList.add(new Stock(500, "K's Salads", "KSD", 0.92, 1.14, 10));
-        AssetsList.add(new Stock(1000, "Hot N' Spicy Burgers", "HSB", 0.90, 1.14, 10));
-        AssetsList.add(new Stock(3500, "Big Gas Garage", "BGG", 0.84, 1.20, 10));
-        AssetsList.add(new Stock(5000, "Fire'd Up Finances", "FUF", 0.97, 1.07, 10));
-        AssetsList.add(new Stock(7500, "BigBrain Computers", "BCO", 0.93, 1.11, 10));
-        AssetsList.add(new Stock(11000, "Green and Blue Foods", "GBF", 0.92, 1.12, 10));
+        AssetsList.add(new Stock(100, "Joe's Lemonade", "JLM", 0.92, 1.14, 5));
+        AssetsList.add(new Stock(500, "K's Salads", "KSD", 0.92, 1.14, 5));
+        AssetsList.add(new Stock(1000, "Hot N' Spicy Burgers", "HSB", 0.90, 1.14, 5));
+        AssetsList.add(new Stock(3500, "Big Gas Garage", "BGG", 0.84, 1.20, 5));
+        AssetsList.add(new Stock(5000, "Fire'd Up Finances", "FUF", 0.97, 1.07, 5));
+        AssetsList.add(new Stock(7500, "BigBrain Computers", "BCO", 0.93, 1.11, 5));
+        AssetsList.add(new Stock(11000, "Green and Blue Foods", "GBF", 0.92, 1.12, 5));
         AssetsList.add(new Commodity(1000, "Gold", "GLD", 0.88, 1.12));
         AssetsList.add(new Commodity(200, "Silver", "SIL", 0.88, 1.12));
         AssetsList.add(new Commodity(50, "Oil", "OIL", 0.91, 1.09));
