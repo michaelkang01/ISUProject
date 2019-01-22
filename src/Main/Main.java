@@ -1,7 +1,5 @@
 //To Do
 /*
-    Events
-    Examine Individiual Assets in Detail
     Multiple Ways to Apply filter to asset lists
     Rework Stocks, and make it so you buy a %share every time
  */
@@ -46,11 +44,11 @@ public final class Main extends javax.swing.JFrame {
         log += "\n=======================";
         //Initializes the program
         loadBoardData();
-        updateLeaderboard();
         assetData();
         sort();
         updateAssets();
         updateStats();
+        updateLeaderboard();
     }
 
     @SuppressWarnings("unchecked")
@@ -75,6 +73,7 @@ public final class Main extends javax.swing.JFrame {
         btnpur = new javax.swing.JButton();
         btnsel = new javax.swing.JButton();
         btnnext = new javax.swing.JButton();
+        btnexamine = new javax.swing.JButton();
         statscreen = new javax.swing.JPanel();
         lbllog = new javax.swing.JLabel();
         lblname = new javax.swing.JLabel();
@@ -126,7 +125,7 @@ public final class Main extends javax.swing.JFrame {
         txtlea.setRows(5);
         txtlea.setToolTipText("");
         txtlea.setFocusable(false);
-        txtlea.setPreferredSize(new java.awt.Dimension(100, 80));
+        txtlea.setPreferredSize(new java.awt.Dimension(0, 0));
         txtlea.setRequestFocusEnabled(false);
         jScrollPane2.setViewportView(txtlea);
 
@@ -168,6 +167,13 @@ public final class Main extends javax.swing.JFrame {
             }
         });
 
+        btnexamine.setText("Examine Asset");
+        btnexamine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnexamineActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout mainscreenLayout = new javax.swing.GroupLayout(mainscreen);
         mainscreen.setLayout(mainscreenLayout);
         mainscreenLayout.setHorizontalGroup(
@@ -177,47 +183,39 @@ public final class Main extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainscreenLayout.createSequentialGroup()
-                        .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(mainscreenLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(mainscreenLayout.createSequentialGroup()
-                                .addGap(109, 109, 109)
-                                .addComponent(btnpur, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(mainscreenLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnsel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(120, 120, 120))
-                            .addGroup(mainscreenLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(24, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainscreenLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnnext)
-                        .addGap(287, 287, 287))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(mainscreenLayout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(btnpur, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnnext, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnexamine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(39, 39, 39)
+                        .addComponent(btnsel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainscreenLayout.setVerticalGroup(
             mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainscreenLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(mainscreenLayout.createSequentialGroup()
                         .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainscreenLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnnext))
-                            .addGroup(mainscreenLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnsel)
-                                    .addComponent(btnpur))))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(mainscreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnpur)
+                            .addComponent(btnexamine)
+                            .addComponent(btnsel))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnnext)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         statscreen.setBackground(new java.awt.Color(153, 153, 153));
@@ -387,86 +385,94 @@ public final class Main extends javax.swing.JFrame {
 
     private void btnpurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpurActionPerformed
         //Gets the index of what Asset is selected in the list
-        int index = lstav.getSelectedIndex();
-        //Abuses the Boolean addAsset() command, that checks the value of the Asset vs. The Available Funds
-        if (p.addAsset(AssetsList.get(index))) {
-            //If True, send a simple notice through the log of what was purchased by the player
-            log += "\n" + p.getName() + " has purchased - " + AssetsList.get(index).getName() + " || " + AssetsList.get(index).getCode();
-            //If it isnt a commodity, delete it from available assets and remove from the market, because there can only be 1 of each
-            if (!AssetsList.get(index).getType().equals("COMMODITY")) {
-                AssetsList.remove(index);
-                Assets.markettotal--;
-            } //if it is a commodity, add a count to the number of specific commodies owned
-            else {
-                if (AssetsList.get(index).getCode().equals("GLD")) {
-                    Commodity.gldcount++;
+        try {
+            int index = lstav.getSelectedIndex();
+            //Abuses the Boolean addAsset() command, that checks the value of the Asset vs. The Available Funds
+            if (p.addAsset(AssetsList.get(index))) {
+                //If True, send a simple notice through the log of what was purchased by the player
+                log += "\n" + p.getName() + " has purchased - " + AssetsList.get(index).getName() + " || " + AssetsList.get(index).getCode();
+                //If it isnt a commodity, delete it from available assets and remove from the market, because there can only be 1 of each
+                if (!AssetsList.get(index).getType().equals("COMMODITY")) {
+                    AssetsList.remove(index);
+                    Assets.markettotal--;
+                } //if it is a commodity, add a count to the number of specific commodies owned
+                else {
+                    if (AssetsList.get(index).getCode().equals("GLD")) {
+                        Commodity.gldcount++;
+                    }
+                    if (AssetsList.get(index).getCode().equals("SIL")) {
+                        Commodity.silcount++;
+                    }
+                    if (AssetsList.get(index).getCode().equals("OIL")) {
+                        Commodity.oilcount++;
+                    }
+                    if (AssetsList.get(index).getCode().equals("NRG")) {
+                        Commodity.nrgcount++;
+                    }
+                    if (AssetsList.get(index).getCode().equals("PRD")) {
+                        Commodity.prdcount++;
+                    }
                 }
-                if (AssetsList.get(index).getCode().equals("SIL")) {
-                    Commodity.silcount++;
-                }
-                if (AssetsList.get(index).getCode().equals("OIL")) {
-                    Commodity.oilcount++;
-                }
-                if (AssetsList.get(index).getCode().equals("NRG")) {
-                    Commodity.nrgcount++;
-                }
-                if (AssetsList.get(index).getCode().equals("PRD")) {
-                    Commodity.prdcount++;
-                }
+                //Since the player purchased the Asset, add one to the player owned number
+                Assets.playertotal++;
+                //Updates the two lists to make sure they are still sorted by alphabetically by Code
+                sort();
+                //Updates the displays
+                updateStats();
+                updateAssets();
+            } else {
+                //This code is run if the original addAsset call returned false, which means the player did not have the money
+                JOptionPane.showMessageDialog(this, "Error - Not Enough Money");
             }
-            //Since the player purchased the Asset, add one to the player owned number
-            Assets.playertotal++;
-            //Updates the two lists to make sure they are still sorted by alphabetically by Code
-            sort();
-            //Updates the displays
-            updateStats();
-            updateAssets();
-        } else {
-            //This code is run if the original addAsset call returned false, which means the player did not have the money
-            JOptionPane.showMessageDialog(this, "Error - Not Enough Money");
+        } catch (Exception ie) {
+            return;
         }
 
     }//GEN-LAST:event_btnpurActionPerformed
 
     private void btnselActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnselActionPerformed
-        //Gets the Asset that is selected on the sales list
-        int index = lstown.getSelectedIndex();
-        //Sends a simple update through the log to document what the palyer sold
-        log += "\n" + p.getName() + " has sold - " + p.ase.get(index).getName() + " || " + p.ase.get(index).getCode() + " || " + nf.format(p.ase.get(index).getValue());
-        //Add to list of available stocks, unless its a commodity (already there)
-        if (!p.ase.get(index).getType().equals("COMMODITY")) {
-            //If it is a bond, remake the bond, BUT using the original value rather than the new value
-            if (p.ase.get(index).getType().equals("BOND")) {
-                Bond temp = new Bond((Bond) p.ase.get(index));
-                AssetsList.add(new Bond(temp.getOg(), temp));
-            } else {
-                AssetsList.add(p.ase.get(index));
-                //Since it was not a commodity, add the number of Assets back into the market
-                Assets.markettotal++;
+        try {
+            //Gets the Asset that is selected on the sales list
+            int index = lstown.getSelectedIndex();
+            //Sends a simple update through the log to document what the palyer sold
+            log += "\n" + p.getName() + " has sold - " + p.ase.get(index).getName() + " || " + p.ase.get(index).getCode() + " || " + nf.format(p.ase.get(index).getValue());
+            //Add to list of available stocks, unless its a commodity (already there)
+            if (!p.ase.get(index).getType().equals("COMMODITY")) {
+                //If it is a bond, remake the bond, BUT using the original value rather than the new value
+                if (p.ase.get(index).getType().equals("BOND")) {
+                    Bond temp = new Bond((Bond) p.ase.get(index));
+                    AssetsList.add(new Bond(temp.getOg(), temp));
+                } else {
+                    AssetsList.add(p.ase.get(index));
+                    //Since it was not a commodity, add the number of Assets back into the market
+                    Assets.markettotal++;
+                }
+            } //If you did sell a commodity, get rid of one from the count
+            else {
+                if (p.ase.get(index).getCode().equals("GLD")) {
+                    Commodity.gldcount--;
+                }
+                if (p.ase.get(index).getCode().equals("SIL")) {
+                    Commodity.silcount--;
+                }
+                if (p.ase.get(index).getCode().equals("OIL")) {
+                    Commodity.oilcount--;
+                }
+                if (p.ase.get(index).getCode().equals("NRG")) {
+                    Commodity.nrgcount--;
+                }
+                if (p.ase.get(index).getCode().equals("PRD")) {
+                    Commodity.prdcount--;
+                }
             }
-        } //If you did sell a commodity, get rid of one from the count
-        else {
-            if (p.ase.get(index).getCode().equals("GLD")) {
-                Commodity.gldcount--;
-            }
-            if (p.ase.get(index).getCode().equals("SIL")) {
-                Commodity.silcount--;
-            }
-            if (p.ase.get(index).getCode().equals("OIL")) {
-                Commodity.oilcount--;
-            }
-            if (p.ase.get(index).getCode().equals("NRG")) {
-                Commodity.nrgcount--;
-            }
-            if (p.ase.get(index).getCode().equals("PRD")) {
-                Commodity.prdcount--;
-            }
+            //Runs the method in the player class to sell an asset
+            p.sellAsset(index);
+            //Updates displays
+            updateStats();
+            updateAssets();
+        } catch (Exception o) {
+            return;
         }
-        //Runs the method in the player class to sell an asset
-        p.sellAsset(index);
-        //Updates displays
-        updateStats();
-        updateAssets();
     }//GEN-LAST:event_btnselActionPerformed
 
     private void btnnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnextActionPerformed
@@ -550,6 +556,7 @@ public final class Main extends javax.swing.JFrame {
         //Informs the player of total gains/losses of the day
         log += "\n" + "Net Change of Assets : " + nf.format(Assets.getTVal() - prevVal);
         //Update displays
+        sort();
         updateAssets();
         updateStats();
     }//GEN-LAST:event_btnnextActionPerformed
@@ -594,6 +601,24 @@ public final class Main extends javax.swing.JFrame {
         updateAssets();
         updateStats();
     }//GEN-LAST:event_mnuValActionPerformed
+
+    private void btnexamineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexamineActionPerformed
+        int index;
+        try {
+            index = lstav.getSelectedIndex();
+            JOptionPane.showMessageDialog(this, AssetsList.get(index).examine());
+        } catch (Exception i) {
+            return;
+        }
+
+        try {
+            index = lstown.getSelectedIndex();
+            JOptionPane.showMessageDialog(this, p.ase.get(index).examine());
+        } catch (Exception i) {
+            return;
+        }
+
+    }//GEN-LAST:event_btnexamineActionPerformed
 
     public static void main(String args[]) {
 
@@ -686,10 +711,12 @@ public final class Main extends javax.swing.JFrame {
         lstown.setModel(owAssets);
     }
 
-    //Sorts the arrayLists so that they are in alphabetical order according to their Unique Code
+    //Sorts the arrayLists so that they are in order according to their unique code
     public void sort() {
         Collections.sort(AssetsList);
         Collections.sort(p.ase);
+        Collections.sort(leaderboards);
+        updateLeaderboard();
     }
 
     //Performs a linear search and Searches for location of an asset according to Code, used for keeping the price of commodities constant between player and market
@@ -707,6 +734,7 @@ public final class Main extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnexamine;
     private javax.swing.JButton btnnext;
     private javax.swing.JButton btnpur;
     private javax.swing.JButton btnsel;

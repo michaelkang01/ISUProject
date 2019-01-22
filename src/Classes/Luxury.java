@@ -37,7 +37,22 @@ public class Luxury extends Assets{
     public String event() {
         String logr = "";
         rng = Math.random();
+        //1% Chance of your Luxury being a collectable and DOUBLELING in value and Giving 10 Prestige
+        if (rng >= 0.99) {
+            value *= 2;
+            prestige += 10;
+            logr += "\nEVENT||" + name + " was found to be a collectable!";
+        }
         return logr;
+    }
+    
+    @Override
+    public String examine() {
+        String ex = super.examine();
+        //Gives information of the depreciation and prestige value of assets
+        ex += "\nDepreciation: " + depreciation;
+        ex += "\nPrestige: " + prestige;
+        return ex;
     }
     
 }

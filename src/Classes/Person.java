@@ -1,5 +1,6 @@
 package Classes;
 
+import java.text.NumberFormat;
 import java.util.*;
 
 public class Person implements Comparable{
@@ -10,6 +11,7 @@ public class Person implements Comparable{
     public int pos;
     public double dividends;
     public ArrayList<Assets> ase = new ArrayList();
+    public NumberFormat nf = NumberFormat.getCurrencyInstance();
     
     //Creates a Person, given all the values required
     public Person(String n, int p, int m) {
@@ -98,15 +100,10 @@ public class Person implements Comparable{
         
     }
     
-    public void addAssetCP(Assets a) {
-        a.owned = true;
-        ase.add(a);
-    }
-    
     
     //The toString acts simply as a display for what the Scoreboard will show
     public String toString() {
-        return (name + "\n" + pr + " Prestige\n" + "$" + mon);
+        return (name + "\n" + pr + " Prestige\n" + nf.format(mon));
     }
     
     public String getName() {
@@ -128,13 +125,10 @@ public class Person implements Comparable{
     public void getPayout() {
         mon += dividends;
     }
-
+    
     @Override
     public int compareTo(Object t) {
-        Person other = (Person)t;
-        if (mon == other.mon) return 0;
-        else if (mon > other.mon) return 1;
-        else return -1;
+        return (int) (mon - ((Person)t).mon); 
     }
 }
 

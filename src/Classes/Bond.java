@@ -50,5 +50,15 @@ public class Bond extends Assets{
         return logr;
     }
     
+    @Override
+    public String examine() {
+        String ex = super.examine();
+        //Gives info about the rate of the bond, the original value and the total gain (should be 0 if not owned)
+        ex += "\nRate: " + rate;
+        ex += "\nOriginal Value: " + ogvalue;
+        ex += "\nTotal Gains: " + (value - ogvalue);
+        return ex;
+    }
+    
     
 }

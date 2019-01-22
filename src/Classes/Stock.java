@@ -73,9 +73,19 @@ public class Stock extends Assets{
         //8% Chance of stock crashing 10% Regardless of ownership
         else if (rng <= .1) {
             value *= .9;
-            logr +=  "\n" + name + " has crashed 10%";
+            logr +=  "\nEVENT||" + name + " has crashed 10%";
         }
         return logr;
+    }
+    
+    @Override
+    public String examine() {
+        String ex = super.examine();
+        //Gives infor about the range of chance, how much of the company the stock is, and the projected amount of dividend in the next day
+        ex += "\nFlucuation Range: " + min + " - " + max;
+        ex += "\nOwnership: " + ownership;
+        ex += "\nProjected Dividend: " + getDividend();
+        return ex;
     }
     
     

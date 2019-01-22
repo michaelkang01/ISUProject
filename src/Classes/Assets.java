@@ -63,6 +63,24 @@ public abstract class Assets implements Comparable{
         return code + ": " + name + " || " + type + " || " + nf.format(value);
     }
     
+    //Used in the examine function, will be extended by each of the children
+    public String examine() {
+        String ex = "";
+        //Adds the name, code, type of asset, value, and asks if asset is owned to the returned examine String
+        ex += "Name: " + name;
+        ex += "\nCode: " + code;
+        ex += "\nType: " + type;
+        ex += "\nValue: " + value;
+        String ownstr;
+        if (isOwned()) {
+            ownstr = "Yes";
+        }
+        else {
+            ownstr = "No";
+        }
+        ex += "\nOwned: " + ownstr;
+        return ex;
+    }
     
     //Abstract Method for event, the only common thing between events for the Assets is having rng play a role, returns a string because it will always be used with the log in main. Only chance of one event will happen per asset 
     abstract public String event();
